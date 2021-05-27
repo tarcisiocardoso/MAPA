@@ -1,0 +1,105 @@
+@import url("estilo-template.css");
+/* ###
+
+  Arquivo responsável pelo estilo do template
+  
+  #resolucao;
+  #topo;
+  #dados-login;
+  #menu;
+  #controle-exibicao-coluna;
+  #corpo;
+  #caminho-navegacao;
+  #area-mensagens;
+  #rodape;
+        
+### */
+
+@import url("estilo-menu.css");
+/* ###
+
+  Arquivo responsável pelo estilo do menu    
+  
+### */
+
+@import url("estilo-tabela.css");
+/* ###
+
+  Arquivo responsável pelo estilo das tabelas    
+  
+  .table-grid
+  .table-form
+  .table-detalhar
+  
+### */
+
+@import url("estilo-formulario.css");
+/* ###
+
+  Arquivo responsável pelo estilo dos elementos de formulário
+  
+	.form-label
+	.form-text
+	.form-select
+	.form-textarea
+	.form-check-radio		
+	.form-botton
+	.form-barra-botoes
+      
+### */
+
+@import url("estilo-link.css");
+/* ###
+
+  Arquivo responsável pelo estilo dos links
+  
+  .link-caminho-navegacao
+  .link-acessibilidade-letra
+  .link-paginador
+      
+### */
+
+@import url("estilo-abas.css");
+/* ###
+
+  Arquivo responsável pelo estilo das abas
+  
+  #nav-abas
+  #nav-aba-conteudo
+      
+### */
+
+
+@import url("estilo-impressao.css");	
+/* ###
+
+  Arquivo responsável pelo estilo da impressão
+  
+  #moldura-topo;
+  #dados-login;
+  #moldura-navegacao-global;
+  #navegacao-local;
+  #corpo;
+  #controle-exibicao-menu;
+      
+### */
+
+@import url("SpryTabbedPanels.css");
+
+@import url("jquery/mapa-theme.css");
+
+/*  configuraÃ§Ã£o para estilo de aplicaÃ§Ãµes ainda nÃ£o corrigido*/
+div#identificacao-sistema p {
+        display: nome;
+}
+/*
+a["href='base!logout.action'"]: {
+        color: #FFFFFF;
+}
+*/
+
+div#dados-login a {
+        color: #FFFFFF;
+}
+
+

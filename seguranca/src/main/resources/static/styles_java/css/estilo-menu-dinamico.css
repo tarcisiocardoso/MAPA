@@ -1,0 +1,119 @@
+/*
+--------- menu ----------------
+*/
+.menu-dinamico {
+    float			: left;
+    width			: 100.1%;
+    background-color: #0f4098;
+    border-bottom: 1px solid #0f4098 1%;
+    position: relative; 
+    display: block;
+    z-index: 5;
+    margin-left: -1px;
+  }
+  
+  .menu-dinamico * { 
+      margin: 0; 
+      padding: 0 ; 
+      list-style: none;
+  }
+  
+  .menu-dinamico li {
+      line-height: 1.2em; 
+      vertical-align: top;
+      float: left;
+      border-left: 1px groove #FFFFFF;
+  }
+  
+  .menu-dinamico a { 
+      display: block; 
+      zoom: 1; 
+      line-height: 1.2em;
+      padding: 5px 10px 5px 15px;
+      color: #FFFFFF;
+      text-decoration: none;
+  }
+  
+  .menu-dinamico li a:hover, .menu-dinamico li a.over { 
+      color: #0f4098;
+  }
+  
+  .menu-dinamico li ul {
+      position: absolute; 
+      visibility: hidden;
+      border: 1px solid #0f4098;
+      background-color: #0f4098;
+      width: -moz-max-content;
+      z-index: 5;
+  }
+  
+  .menu-dinamico li:hover ul, .menu-dinamico li.over ul { 
+      visibility: visible;
+  }
+  
+  .menu-dinamico li:hover ul ul { 
+      visibility: hidden;
+  }
+  
+  .menu-dinamico  li li:hover ul { 
+      visibility: visible;
+  }
+  
+  .menu-dinamico  li li:hover ul ul  {
+      visibility: hidden;
+  }
+  
+  .menu-dinamico li li li:hover ul {
+      visibility: visible;
+  }
+  
+  .menu-dinamico:after, .menu-dinamico.after { 
+      content: "."; 
+      line-height: 0px; 
+      clear: both; 
+      display: block; 
+      visibility: hidden;
+  }
+  
+  .menu-dinamico li ul li { 
+      float: none;
+  }	
+  
+  .menu-dinamico li ul li ul {
+      left: 100%;
+      top: 2px;
+  }
+  
+  .menu-dinamico ul li ul li {
+      position: relative;
+      white-space: nowrap;
+  }
+  
+  
+  /* Micox Pseudo-class-css2 to IE (MXPC). Activate .hover and .first-child in IE 6
+     http://elmicox.blogspot.com/2008/03/ativando-hover-e-first-child-no-ie-6-um.html */
+  * html * { color: expression( (function(who){ 
+      if(!who.MXPC){
+          who.MXPC = '1';
+          if(who.nodeName != 'A'){
+              who.onmouseenter=function(){ who.className += ' hover'};
+              who.onmouseleave=function(){ who.className = who.className.replace(' hover','')}; 
+          }
+          (who==who.parentNode.firstChild) ? who.className += ' first-child' : '' ;
+      } 
+  })(this) , 'auto') }
+  
+  
+  /*Manter o primeiro menu com cor diferente*/
+  .menu-dinamico ul li:hover, .menu-dinamico ul li.over {
+      background-color: #8AB2EF;
+  }
+  
+  /*linha para separar itens dentro de um menu*/
+  .menu-dinamico li li {
+      border: 1px solid #FFFFFF;
+  }
+  
+  
+  
+  

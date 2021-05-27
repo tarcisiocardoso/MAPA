@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+@import url("estilo.css");
+@import url("bootstrap.min.css");
+@import url("bootstrap-submenu.css");
+@import url("bootstrap-theme.css");
+@import url("bootstrapValidator.min.css");
+@import url("dataTables.bootstrap.css");
+/* @import url("jquery.dataTables.min.css"); */
+@import url("daterangepicker.css");
+
+.link-paginador-bootstrap {
+	text-align: center;
+}
+.link-paginador-bootstrap label{
+	padding-bottom: 10px;
+}
