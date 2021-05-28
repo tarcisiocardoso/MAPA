@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
+<head>
+<title>MAPA - Ministério da Agricultura, Pecuária e Abastecimento</title><meta name="copyright" content="Ministério da Agricultura, Pecuária e Abastecimento"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<link rel="stylesheet" type="text/css" href="/styles_java/css/estilo-bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/styles_java/css/estilo-menu-dinamico.css" />
+
+<!-- ### JQuery - Biblioteca de componentes javascript ### -->
+<script type="text/javascript" src="/segaut/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/segaut/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/segaut/js/jquery.maskedinput.js"></script>
+<script type="text/javascript" src="/segaut/js/scripts.js"></script>
+<script type="text/javascript" src="/segaut/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/segaut/js/jquery.mask.min.js"></script>
+<script type="text/javascript" src="/segaut/js/validator.js"></script>
+</head>
+
+<body>
+
+
+
+<form id="base" name="base" action="/segaut/base.action" method="post">
+<input type="hidden" name="idGlobal" value="" id="base_idGlobal"/>
+<input type="hidden" name="idLocal" value="" id="base_idLocal"/>
+<input type="hidden" name="ativo" value="S" />
+<div id="resolucao">
+    <div id="moldura-topo">
+        <div id="topo">
+            <div id="identificacao-ministerio">
+                <span>
+                    <div id="imagemGov">
+                        <a id="brasilgov" target="_blank" href="http://www.brasil.gov.br"></a>
+                    </div>
+                </span>
+            </div>
+            <div id="identificacao-sistema">
+                <h1>
+                    <label id="base_cabecalho_sigla_sistema" class="form-label">SEGAUT</label>
+                </h1>
+                <h2>
+                    <label id="base_cabecalho_versao" class="form-label">2.5</label>
+                    -
+                    <label id="base_cabecalho_descricao_sistema" class="form-label">Sistema de Autentica&#xE7;&#xE3;o</label>
+                </h2>
+            </div>
+            <div id="dados-login">
+                <img height="70" style="float:right; border-radius:50px; margin-left: 22px;" id="img_usuario" src="/img_usuarios/05/0550c264df52017db03e39573098968a.jpg"></img>
+                <div id="dados_usuario" style="float: left;">
+                    <div class="row">
+                        <label id="base_label_usuario" style="color: #dcecff;">Usu&#xE1;rio</label>:
+                        <label id="identificacao_usuario">Givaldo Almeida Oliveira</label>
+                    </div>
+                    <div class="row">
+                        <label id="base_label_data" style="color: #dcecff;">Data</label>:
+                        <B>28/05/2021  11:30</B>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+
+
+
+<script>
+$(document).ready(function(){
+$('#id_brand_aplicacao').text($('#base_cabecalho_sigla_sistema').text());
+if(!$('#img_usuario').is(':visible')) {
+    $('#dados-login').css("padding", "55px 35px 0 0");
+}
+$("input[type='image']").click(function() {
+    $("input[id='my_file']").click();
+});
+});
+function acao(url, id) {
+    document.base.idLocal.value = id;
+    document.base.action = url;
+    document.base.submit();
+}
+</script>
+
+
+
+<nav class="navbar navbar-default">
+    <div class="navbar-header">
+        <button class='navbar-toggle' type='button' data-toggle='collapse' data-target='.navbar-collapse'>
+            <span class="sr-only">Toggle navigation</span> 
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span> 
+        </button>
+        <a id="id_brand_aplicacao" class="navbar-brand" href="#"></a>
+    </div>
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="/lista">Meus Sistemas</a></li>
+            
+                <li><a href="/alterarSenha">Alterar Minha Senha</a></li>
+            
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <li><a id="botao-ajuda" href="#" onclick="abrirAjuda();return false;">Ajuda <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></li>
+        <li><a id="link-responsivo-logout" href="login!logout.action">Sair <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<script type="text/javascript" src="/segaut/js/password-score.js"></script>
+<script type="text/javascript" src="/segaut/js/password-score-options.js"></script>
+<script type="text/javascript" src="/segaut/js/bootstrap-strength-meter.js"></script>
+
+<script>
+$(document).ready(function(){
+    $("#senha, #senhaConfirmacao").prop('required',true);
+    $('#alteraSenhaForm').validator();
+    $('#senha').strengthMeter('progressBar', {
+        container: $('#barra-progresso-senha'),
+        hierarchy: {
+            '0': 'progress-bar-danger',
+            '15': 'progress-bar-warning',
+            '30': 'progress-bar-success'
+        }
+    });
+});
+</script>
+
+<form id="alteraSenhaForm" name="usuario" action="/segaut/usuario!alterarSenha.action" method="post">
+<div id="corpo">
+<ol class="breadcrumb">
+    <li>Caminho</li>
+      <li class="active"><a href="/alterarSenha">Alterar Minha Senha</a></li>
+</ol>
+    
+
+    <div class="container well">
+        <fieldset>
+            <legend><i class="glyphicon glyphicon-lock">&nbsp</i>Alterar Senha</legend>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6 form-group has-feedback">
+                    <span class="form-campo-obrigatorio">*</span>
+                    <label id="alteraSenhaForm_usuario_label_senha_nova">Nova Senha</label>
+                    <input type="password" name="senha" maxlength="24" id="senha" class="form-control" pattern="(?:(?=^\s*\S+\s*$)(?=.*[A-Z])(?=.*[a-z])(?=.*\d)|(?=^\s*\S+\s*$)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$&amp;*])).{8,}" data-error="A senha deve conter pelo menos 8 e no máximo 24 caracteres, contendo letras em maiúsculo e minúsculo com números ou caracteres especiais" data-minlength="8" data-maxlength="24"/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="col-sm-3 col-lg-4 form-group">
+                    <label class="form-label">Força da senha</label>
+                    <div id="barra-progresso-senha"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6 form-group has-feedback">
+                    <span class="form-campo-obrigatorio">*</span>
+                    <label id="alteraSenhaForm_usuario_label_senha_confirmacao">Confirma&#xE7;&#xE3;o da Senha</label>
+                    <input type="password" name="senhaConfirmacao" maxlength="24" id="senhaConfirmacao" class="form-control" title="Informe novamente a nova senha" data-match-error="As senhas não conferem" data-match="#senha"/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6 form-group has-feedback">
+                    <p>
+                        <a target="_blank" href="http://dsic.planalto.gov.br/noticias/47-dicas-para-uma-boa-senha">
+                        Clique aqui</a> para conhecer as dicas para uma boa senha!
+                    </p>
+                </div>
+            </div>
+        <p class="form-legenda-campo-obrigatorio">
+            <span class="form-campo-obrigatorio">*</span> Campo(s) de preenchimento	obrigatório
+        </p>
+        <div class="form-barra-botoes">
+            <input type="submit" id="alteraSenhaForm_label_confirmar" name="method:alterarSenha" value="Confirmar" class="btn btn-primary"/>
+
+        </div>
+        </fieldset>
+    </div>
+</div>
+</form>
+
+
+
+
+</body>
+</html>

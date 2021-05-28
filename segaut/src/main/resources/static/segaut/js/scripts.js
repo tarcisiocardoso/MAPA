@@ -108,7 +108,8 @@ function configuraEstiloCombo(select) {
 function acessarAmbiente(url, aplicacao) {
 	document.forms[1].url.value = url;
 	document.forms[1].aplicacao.value = aplicacao;
-	document.forms[1].action = "login!acessarAmbiente.action";
+	// document.forms[1].action = "login!acessarAmbiente.action";
+	document.forms[1].action = "login?!acessarAmbiente.action";
 	document.forms[1].submit();
 }
 

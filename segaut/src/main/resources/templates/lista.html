@@ -1,0 +1,391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
+<head>
+<title>MAPA - Ministério da Agricultura, Pecuária e Abastecimento</title><meta name="copyright" content="Ministério da Agricultura, Pecuária e Abastecimento"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<link rel="stylesheet" type="text/css" href="/styles_java/css/estilo-bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/styles_java/css/estilo-menu-dinamico.css" />
+
+<!-- ### JQuery - Biblioteca de componentes javascript ### -->
+<script type="text/javascript" src="/segaut/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/segaut/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/segaut/js/jquery.maskedinput.js"></script>
+<script type="text/javascript" src="/segaut/js/scripts.js"></script>
+<script type="text/javascript" src="/segaut/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/segaut/js/jquery.mask.min.js"></script>
+<script type="text/javascript" src="/segaut/js/validator.js"></script>
+</head>
+
+<body>
+
+
+
+<form id="base" name="base" action="/segaut/base.action" method="post">
+<input type="hidden" name="idGlobal" value="" id="base_idGlobal"/>
+<input type="hidden" name="idLocal" value="" id="base_idLocal"/>
+<input type="hidden" name="ativo" value="S" />
+<div id="resolucao">
+    <div id="moldura-topo">
+        <div id="topo">
+            <div id="identificacao-ministerio">
+                <span>
+                    <div id="imagemGov">
+                        <a id="brasilgov" target="_blank" href="http://www.brasil.gov.br"></a>
+                    </div>
+                </span>
+            </div>
+            <div id="identificacao-sistema">
+                <h1>
+                    <label id="base_cabecalho_sigla_sistema" class="form-label">SEGAUT</label>
+                </h1>
+                <h2>
+                    <label id="base_cabecalho_versao" class="form-label">2.5</label>
+                    -
+                    <label id="base_cabecalho_descricao_sistema" class="form-label">Sistema de Autentica&#xE7;&#xE3;o</label>
+                </h2>
+            </div>
+            <div id="dados-login">
+                <img height="70" style="float:right; border-radius:50px; margin-left: 22px;" id="img_usuario" src="/img_usuarios/05/0550c264df52017db03e39573098968a.jpg"></img>
+                <div id="dados_usuario" style="float: left;">
+                    <div class="row">
+                        <label id="base_label_usuario" style="color: #dcecff;">Usu&#xE1;rio</label>:
+                        <label id="identificacao_usuario">Givaldo Almeida Oliveira</label>
+                    </div>
+                    <div class="row">
+                        <label id="base_label_data" style="color: #dcecff;">Data</label>:
+                        <B>28/05/2021  11:21</B>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+
+
+
+<script>
+$(document).ready(function(){
+$('#id_brand_aplicacao').text($('#base_cabecalho_sigla_sistema').text());
+if(!$('#img_usuario').is(':visible')) {
+    $('#dados-login').css("padding", "55px 35px 0 0");
+}
+$("input[type='image']").click(function() {
+    $("input[id='my_file']").click();
+});
+});
+function acao(url, id) {
+    document.base.idLocal.value = id;
+    document.base.action = url;
+    document.base.submit();
+}
+</script>
+
+
+
+<nav class="navbar navbar-default">
+    <div class="navbar-header">
+        <button class='navbar-toggle' type='button' data-toggle='collapse' data-target='.navbar-collapse'>
+            <span class="sr-only">Toggle navigation</span> 
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span> 
+        </button>
+        <a id="id_brand_aplicacao" class="navbar-brand" href="#"></a>
+    </div>
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="/lista">Meus Sistemas</a></li>
+            
+                <li><a href="/alterarSenha">Alterar Minha Senha</a></li>
+            
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <li><a id="botao-ajuda" href="#" onclick="abrirAjuda();return false;">Ajuda <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></li>
+        <li><a id="link-responsivo-logout" href="/logout">Sair <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
+        </ul>
+    </div>
+</nav>
+
+
+
+<div id="corpo">
+
+
+<div class="container">
+    <form id="acessarSistemasForm" name="login" action="/segaut/login.action" method="post">
+        <input type="hidden" name="url" value="" id="acessarSistemasForm_url"/>
+        <input type="hidden" name="aplicacao" value="" id="acessarSistemasForm_aplicacao"/>
+        <input type="hidden" name="abrirPopup" value="false" id="abrirPopup"/>
+        
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-condensed">
+                    <caption><label id="acessarSistemasForm_label_sistemasdisponiveis">Sistemas Dispon&#xED;veis</label></caption>
+                    <tbody>
+                        
+                        
+                            <tr>
+                                <td id="sgAplicacaoAcesso">
+                                    <b> 
+                                        <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/comex_api', 'COMEX')" title="Clique aqui para acessar o COMEX">
+                                            <i class="glyphicon glyphicon-hdd">&nbsp</i>COMEX
+                                        </a>
+                                    </b>
+                                </td>
+                                <td id="nmAplicacaoAcesso">
+                                    <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/comex_api', 'COMEX')" title="Clique aqui para acessar o COMEX">
+                                        COMEX
+                                    </a>
+                                </td>
+                                <td width="20%" align="center" style="font-size: 1em; margin-bottom: 15px; margin-top: 15px; height: 20px; padding: 10px 0px 2px 10px;">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr>
+                                <td id="sgAplicacaoAcesso">
+                                    <b> 
+                                        <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/dcpoa', 'DCPOA')" title="Clique aqui para acessar o DCPOA">
+                                            <i class="glyphicon glyphicon-hdd">&nbsp</i>DCPOA
+                                        </a>
+                                    </b>
+                                </td>
+                                <td id="nmAplicacaoAcesso">
+                                    <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/dcpoa', 'DCPOA')" title="Clique aqui para acessar o DCPOA">
+                                        Declara&#xE7;&#xE3;o de Conformidade de Produtos de Origem Animal
+                                    </a>
+                                </td>
+                                <td width="20%" align="center" style="font-size: 1em; margin-bottom: 15px; margin-top: 15px; height: 20px; padding: 10px 0px 2px 10px;">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr>
+                                <td id="sgAplicacaoAcesso">
+                                    <b> 
+                                        <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/pga_sigsif', 'PGA-SIGSIF')" title="Clique aqui para acessar o PGA-SIGSIF">
+                                            <i class="glyphicon glyphicon-hdd">&nbsp</i>PGA-SIGSIF
+                                        </a>
+                                    </b>
+                                </td>
+                                <td id="nmAplicacaoAcesso">
+                                    <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/pga_sigsif', 'PGA-SIGSIF')" title="Clique aqui para acessar o PGA-SIGSIF">
+                                        PGA / Sistema de Informa&#xE7;&#xF5;es Gerenciais do SIF
+                                    </a>
+                                </td>
+                                <td width="20%" align="center" style="font-size: 1em; margin-bottom: 15px; margin-top: 15px; height: 20px; padding: 10px 0px 2px 10px;">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr>
+                                <td id="sgAplicacaoAcesso">
+                                    <b> 
+                                        <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sapcana', 'SAPCANA')" title="Clique aqui para acessar o SAPCANA">
+                                            <i class="glyphicon glyphicon-hdd">&nbsp</i>SAPCANA
+                                        </a>
+                                    </b>
+                                </td>
+                                <td id="nmAplicacaoAcesso">
+                                    <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sapcana', 'SAPCANA')" title="Clique aqui para acessar o SAPCANA">
+                                        Sistema de Acompanhamento da Produ&#xE7;&#xE3;o Canavieira
+                                    </a>
+                                </td>
+                                <td width="20%" align="center" style="font-size: 1em; margin-bottom: 15px; margin-top: 15px; height: 20px; padding: 10px 0px 2px 10px;">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr>
+                                <td id="sgAplicacaoAcesso">
+                                    <b> 
+                                        <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sigpoa', 'SIGPOA_OLD')" title="Clique aqui para acessar o SIGPOA_OLD">
+                                            <i class="glyphicon glyphicon-hdd">&nbsp</i>SIGPOA_OLD
+                                        </a>
+                                    </b>
+                                </td>
+                                <td id="nmAplicacaoAcesso">
+                                    <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sigpoa', 'SIGPOA_OLD')" title="Clique aqui para acessar o SIGPOA_OLD">
+                                        Sistema de Gerenciamento de Produtos de Origem Animal
+                                    </a>
+                                </td>
+                                <td width="20%" align="center" style="font-size: 1em; margin-bottom: 15px; margin-top: 15px; height: 20px; padding: 10px 0px 2px 10px;">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr>
+                                <td id="sgAplicacaoAcesso">
+                                    <b> 
+                                        <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sipe', 'SIPEAGRO')" title="Clique aqui para acessar o SIPEAGRO">
+                                            <i class="glyphicon glyphicon-hdd">&nbsp</i>SIPEAGRO
+                                        </a>
+                                    </b>
+                                </td>
+                                <td id="nmAplicacaoAcesso">
+                                    <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sipe', 'SIPEAGRO')" title="Clique aqui para acessar o SIPEAGRO">
+                                        Sistema Integrado de Produtos e Estabelecimentos Agropecu&#xE1;rios
+                                    </a>
+                                </td>
+                                <td width="20%" align="center" style="font-size: 1em; margin-bottom: 15px; margin-top: 15px; height: 20px; padding: 10px 0px 2px 10px;">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr>
+                                <td id="sgAplicacaoAcesso">
+                                    <b> 
+                                        <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sispes', 'SISPES')" title="Clique aqui para acessar o SISPES">
+                                            <i class="glyphicon glyphicon-hdd">&nbsp</i>SISPES
+                                        </a>
+                                    </b>
+                                </td>
+                                <td id="nmAplicacaoAcesso">
+                                    <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sispes', 'SISPES')" title="Clique aqui para acessar o SISPES">
+                                        Sistema de Pesquisa de Satisfa&#xE7;&#xE3;o do Cidad&#xE3;o
+                                    </a>
+                                </td>
+                                <td width="20%" align="center" style="font-size: 1em; margin-bottom: 15px; margin-top: 15px; height: 20px; padding: 10px 0px 2px 10px;">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr>
+                                <td id="sgAplicacaoAcesso">
+                                    <b> 
+                                        <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sisprocer', 'SISPROCER')" title="Clique aqui para acessar o SISPROCER">
+                                            <i class="glyphicon glyphicon-hdd">&nbsp</i>SISPROCER
+                                        </a>
+                                    </b>
+                                </td>
+                                <td id="nmAplicacaoAcesso">
+                                    <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sisprocer', 'SISPROCER')" title="Clique aqui para acessar o SISPROCER">
+                                        Sistema de Julgamento de Recursos da CER
+                                    </a>
+                                </td>
+                                <td width="20%" align="center" style="font-size: 1em; margin-bottom: 15px; margin-top: 15px; height: 20px; padding: 10px 0px 2px 10px;">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr>
+                                <td id="sgAplicacaoAcesso">
+                                    <b> 
+                                        <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sisrec', 'SISREC')" title="Clique aqui para acessar o SISREC">
+                                            <i class="glyphicon glyphicon-hdd">&nbsp</i>SISREC
+                                        </a>
+                                    </b>
+                                </td>
+                                <td id="nmAplicacaoAcesso">
+                                    <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sisrec', 'SISREC')" title="Clique aqui para acessar o SISREC">
+                                        Sistema de Informa&#xE7;&#xE3;o de Requisitos e Certificados da &#xC1;rea Animal
+                                    </a>
+                                </td>
+                                <td width="20%" align="center" style="font-size: 1em; margin-bottom: 15px; margin-top: 15px; height: 20px; padding: 10px 0px 2px 10px;">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr>
+                                <td id="sgAplicacaoAcesso">
+                                    <b> 
+                                        <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/siszarc', 'SISZARC')" title="Clique aqui para acessar o SISZARC">
+                                            <i class="glyphicon glyphicon-hdd">&nbsp</i>SISZARC
+                                        </a>
+                                    </b>
+                                </td>
+                                <td id="nmAplicacaoAcesso">
+                                    <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/siszarc', 'SISZARC')" title="Clique aqui para acessar o SISZARC">
+                                        Sistema de Zoneamento Agr&#xED;cola de Risco Clim&#xE1;tico
+                                    </a>
+                                </td>
+                                <td width="20%" align="center" style="font-size: 1em; margin-bottom: 15px; margin-top: 15px; height: 20px; padding: 10px 0px 2px 10px;">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr>
+                                <td id="sgAplicacaoAcesso">
+                                    <b> 
+                                        <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sivibe', 'SIVIBE')" title="Clique aqui para acessar o SIVIBE">
+                                            <i class="glyphicon glyphicon-hdd">&nbsp</i>SIVIBE
+                                        </a>
+                                    </b>
+                                </td>
+                                <td id="nmAplicacaoAcesso">
+                                    <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/sivibe', 'SIVIBE')" title="Clique aqui para acessar o SIVIBE">
+                                        Sistema de Informa&#xE7;&#xF5;es da &#xC1;rea de Vinhos e Bebidas
+                                    </a>
+                                </td>
+                                <td width="20%" align="center" style="font-size: 1em; margin-bottom: 15px; margin-top: 15px; height: 20px; padding: 10px 0px 2px 10px;">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr>
+                                <td id="sgAplicacaoAcesso">
+                                    <b> 
+                                        <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/solicita', 'SOLICITA')" title="Clique aqui para acessar o SOLICITA">
+                                            <i class="glyphicon glyphicon-hdd">&nbsp</i>SOLICITA
+                                        </a>
+                                    </b>
+                                </td>
+                                <td id="nmAplicacaoAcesso">
+                                    <a id="acessarSistemasForm_" href="javascript:acessarAmbiente('/solicita', 'SOLICITA')" title="Clique aqui para acessar o SOLICITA">
+                                        Sistema de Solicita&#xE7;&#xE3;o de Acesso
+                                    </a>
+                                </td>
+                                <td width="20%" align="center" style="font-size: 1em; margin-bottom: 15px; margin-top: 15px; height: 20px; padding: 10px 0px 2px 10px;">
+                                    
+                                </td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        
+        
+    </form>
+
+
+
+
+</div>
+</div>
+<script>
+function acessarAmbiente(url, aplicacao) {
+    console.log(url, aplicacao);
+    alert("Implementar " + url + " : " + aplicacao);
+    // document.forms[1].url.value = url;
+    // document.forms[1].aplicacao.value = aplicacao;
+    // // document.forms[1].action = "login!acessarAmbiente.action";
+    // document.forms[1].action = "login?!acessarAmbiente.action";
+    // document.forms[1].submit();
+}
+
+$(window).load(function() {
+    //Se existir avaliação de sistema a ser feita, abre popup com aviso.
+    if ($('#abrirPopup').val() == "true") {
+        $('#dialog-aviso').dialog('open');
+        return false;
+    }
+});
+</script>
+<div id="dialog-aviso" title="Aviso">
+<p>Prezado usuário,</p>
+<br/>
+<p>Visando avaliar o nível de satisfação dos usuários de sistemas de informação, 
+está disponível um questionário a ser preenchido pelos gestores dos sistemas, usuários internos e externos.</p>
+<br/>
+<p>Esta pesquisa visa medir o atendimento aos requisitos de acessibilidade, navegabilidade e qualidade das informações 
+disponibilizadas pelos sistemas de informação do MAPA.</p>
+<br/>
+<p>A premissa é avaliar o nível de satisfação dos usuários com os sistemas de informação do MAPA.</p>
+<br/>
+<br/>
+<br/>
+<p>Deseja responder a pesquisa agora?</p>
+</div>
+</body>
+</html>
