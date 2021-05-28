@@ -33,7 +33,6 @@ public class CustomUserDetailsService implements UserDetailsService{
 		});
 
 		System.out.println(usuario);
-
 //		UserDetails user = User.withDefaultPasswordEncoder()
 //		          .username("adm")
 //		          .password("123")
