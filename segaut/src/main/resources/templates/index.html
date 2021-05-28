@@ -2,13 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>MAPA - Ministério da Agricultura, Pecuária e Abastecimentooo</title>
-    <meta name="copyright" content="Ministério da Agricultura, Pecuária e Abastecimento" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" type="text/css" href="/styles_java/css/estilo-login.css" />
-    <link rel="stylesheet" type="text/css" href="/styles_java/css/estilo.css" />
-    <link rel="stylesheet" type="text/css" href="/styles_java/css/estilo-menu-dinamico.css" />
+    <title>MAPA - Ministério da Agricultura, Pecuária e Abastecimento</title><meta name="copyright" content="Ministério da Agricultura, Pecuária e Abastecimento"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<link rel="stylesheet" type="text/css" href="/styles_java/css/estilo-bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="/styles_java/css/estilo-menu-dinamico.css" />
+	
+	<!-- ### JQuery - Biblioteca de componentes javascript ### -->
+	<script type="text/javascript" src="/segaut/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="/segaut/js/jquery-ui.js"></script>
+	<script type="text/javascript" src="/segaut/js/jquery.maskedinput.js"></script>
+	<script type="text/javascript" src="/segaut/js/scripts.js"></script>
+	<script type="text/javascript" src="/segaut/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/segaut/js/jquery.mask.min.js"></script>
+	<script type="text/javascript" src="/segaut/js/validator.js"></script>
     <style type="text/css">
         div#divVersaoBrowser {
             display: none;
@@ -26,19 +31,6 @@
             padding: 10px;
         }
     </style>
-    <!-- ### JQuery - Biblioteca de componentes javascript ### -->
-
-    <script type="text/javascript" src="/segaut/js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="/segaut/js/jquery-ui.js"></script>
-    <script type="text/javascript" src="/segaut/js/jquery.maskedinput.js"></script>
-    <script type="text/javascript" src="/segaut/js/scripts.js"></script>
-    <script type="text/javascript" src="/segaut/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/segaut/js/jquery.mask.min.js"></script>
-    <script type="text/javascript" src="/segaut/js/validator.js"></script>
-    <script type="text/javascript" src="/segaut/js/checkBrowserVersion.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="/styles_java/css/estilo-bootstrap.css" />
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
@@ -53,9 +45,7 @@
 
 <body onload="javascript: checkBrowserVersion();">
     <div id="divVersaoBrowser">
-        <img width="12px;" src="/styles_java/img/ico-msg-erro.gif"
-            style="float: right; top:-5px; right:-5px; position: relative;" title="Clique aqui para ignorar este aviso"
-            onclick="javascript: $('#divVersaoBrowser').fadeOut('slow');" />
+        <img height="70" style="float:right; border-radius:50px; margin-left: 22px;" id="img_usuario" src="/img_usuarios/05/0550c264df52017db03e39573098968a.jpg"></img>
         <strong>Esta versão de navegador está desatualizada.</strong>
         <br />
         Veja ao lado as versões mínimas recomendadas para atualização e navegue com mais segurança.
@@ -89,23 +79,28 @@
                     </span>
                 </div>
                 <div id="identificacao-sistema">
-                    <h1>SEGAUT</h1>
-                    <h2>2.5 - Sistema de Autenticação</h2>
-                </div>
+					<h1>
+						<label id="base_cabecalho_sigla_sistema" class="form-label">SEGAUT</label>
+					</h1>
+					<h2>
+						<label id="base_cabecalho_versao" class="form-label">2.5</label>
+						-
+						<label id="base_cabecalho_descricao_sistema" class="form-label">Sistema de Autentica&#xE7;&#xE3;o</label>
+					</h2>
+				</div>
                 <div id="dados-login">
-                    <img height="70" style="float:right; border-radius:50px; margin-left: 22px;" id="img_usuario"
-                        src="/styles_java/img/download.jpeg"></img>
-                    <div id="dados_usuario" style="float: left;">
-                        <div class="row">
-                            <label id="base_label_usuario" style="color: #dcecff;">Usu&#xE1;rio</label>:
-                            <label id="identificacao_usuario">Givaldo Almeida Oliveira</label>
-                        </div>
-                        <div class="row">
-                            <label id="base_label_data" style="color: #dcecff;">Data</label>:
-                            <B>27/05/2021 19:43</B>
-                        </div>
-                    </div>
-                </div>
+					<img height="70" style="float:right; border-radius:50px; margin-left: 22px;" id="img_usuario" src="https://sistemasweb.agricultura.gov.br/img_usuarios/05/0550c264df52017db03e39573098968a.jpg"></img>
+					<div id="dados_usuario" style="float: left;">
+						<div class="row">
+							<label id="base_label_usuario" style="color: #dcecff;">Usu&#xE1;rio</label>:
+							<label id="identificacao_usuario">Givaldo Almeida Oliveira</label>
+						</div>
+						<div class="row">
+							<label id="base_label_data" style="color: #dcecff;">Data</label>:
+							<B>28/05/2021  11:09</B>
+						</div>
+					</div>
+				</div>
                 <div id="dados-login"></div>
             </div>
         </div>
@@ -135,7 +130,7 @@
                     <p>Para solicitar sua autorização, favor entrar em contato com o gestor do sistema.</p>
                     <br />
                     <br />
-                    <div class="form-barra-botoes">
+                    <div class="form-barra-botoes" >
                         <input type="submit" id="index__execute" name="method:execute" value="Voltar"
                             class="btn btn-primary" title="Clique aqui para retornar à lista de sistemas" />
 
