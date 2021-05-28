@@ -1,0 +1,57 @@
+/* ###
+
+  Arquivo responsÃ¡vel pelo estilo da tela de login
+         
+### */
+
+div#moldura-navegacao-global {
+    height:20px;
+  }
+  
+  div#navegacao-global {
+    padding-top:20px;
+  }
+  
+  div#corpo h3 {
+    margin-top:20px;
+  }
+  
+  div#conteudo {
+    overflow:hidden;
+    _height :100%;
+  }
+  
+  div#conteudo-login {
+      float :left;
+      width :630px;
+  }
+  
+  div#conteudo-login-novo {
+      float :none;
+  }
+  
+  div#conteudo-login-expirado {
+      float :none;
+      width :500px;
+  }
+  
+  div#acesso-sistema {
+    float:right;
+    width:200px;
+  }
+  
+  div#acesso-sistema p.acesso-form {
+    background    :#efefef;
+    margin-bottom :20px;
+    padding       :10px;
+  }
+  
+  div#acesso-sistema p.acesso-gestores {
+    margin-bottom:5px;
+  }
+  
+  div#acesso-sistema ul {
+    list-style    :none;
+    padding-left  :5px;
+    margin-bottom :20px;
+  }
