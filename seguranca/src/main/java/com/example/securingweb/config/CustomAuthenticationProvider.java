@@ -11,6 +11,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication)
             throws AuthenticationException {
+    	System.out.println(">>>>>CustomAuthenticationProvider<<<<<<s");
         String name = authentication.getName();
         // You can get the password here
         String password = authentication.getCredentials().toString();
