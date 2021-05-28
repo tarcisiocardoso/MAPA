@@ -18,4 +18,19 @@ public class MainController {
 	public String logout(Model model) {
 		return "sair";
 	}
+
+	@GetMapping("/lista")
+	public String lista(Model model) {
+		return "lista";
+	}
+
+	@GetMapping("/alterarSenha")
+	public String alterarSenha(Model model) {
+		return "alterarSenha";
+	}
+
+	@GetMapping("/login")
+	public String login(Model model) {
+		return "login";
+	}
 }
