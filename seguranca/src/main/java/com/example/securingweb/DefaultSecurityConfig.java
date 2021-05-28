@@ -1,15 +1,23 @@
 package com.example.securingweb;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.example.securingweb.config.CustomAuthenticationProvider;
+import com.example.securingweb.service.CustomUserDetailsService;
+
 import static org.springframework.security.config.Customizer.withDefaults;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 @EnableWebSecurity
 public class DefaultSecurityConfig {
@@ -47,19 +55,51 @@ public class DefaultSecurityConfig {
           .permitAll()
           .and()
         .logout()
-          .permitAll();
+          .permitAll()
+          .logoutUrl("/perform_logout")
+          .invalidateHttpSession(true)
+          .deleteCookies("JSESSIONID");
         return http.build();
     }
+    
+//    @Override
+//    @Autowired
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.authenticationProvider(new CustomAuthenticationProvider());
+//    }
 
+//    @Bean
+//    UserDetailsService users() {
+//      System.out.println(">>>>users<<<<");
+//        UserDetails user = User.withDefaultPasswordEncoder()
+//          .username("adm")
+//          .password("123")
+//          .roles("USER")
+//          .build();
+//        return new InMemoryUserDetailsManager(user);
+//    }
+
+//    @Bean
+//    UserDetailsService users() {
+//      System.out.println(">>>>users<<<<");
+//        UserDetails user = User.withDefaultPasswordEncoder()
+//          .username("adm")
+//          .password("123")
+//          .roles("USER")
+//          .build();
+//        return new UserDetailsService() {
+//			
+//			@Override
+//			public UserDetails loadUserByUsername(String arg0) throws UsernameNotFoundException {
+//				System.out.println(">>>>>>bla<<<<<<<<<<<<<<<");
+//				return user;
+//			}
+//		};
+//    }
+    
     @Bean
     UserDetailsService users() {
-      System.out.println(">>>>users<<<<");
-        UserDetails user = User.withDefaultPasswordEncoder()
-          .username("adm")
-          .password("123")
-          .roles("USER")
-          .build();
-        return new InMemoryUserDetailsManager(user);
+      System.out.println(">>>>users 222<<<<");
+        return new CustomUserDetailsService();
     }
-
 }
