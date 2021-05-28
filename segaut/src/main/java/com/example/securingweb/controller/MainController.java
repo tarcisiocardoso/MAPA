@@ -13,4 +13,9 @@ public class MainController {
 		model.addAttribute("name", name);
 		return "greeting";
 	}
+
+	@GetMapping("/logout")
+	public String logout(Model model) {
+		return "sair";
+	}
 }
