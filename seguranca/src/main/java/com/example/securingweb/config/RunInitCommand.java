@@ -35,6 +35,7 @@ public class RunInitCommand implements CommandLineRunner {
 	  public void run(String... strings) throws Exception {
 		  
 		  createTable();
+		  createTableAppClient();
 		  runLdapQuery();
 	  }
 	  public void runLdapQuery() {
@@ -54,6 +55,32 @@ public class RunInitCommand implements CommandLineRunner {
 		  for(String s: lst) {
 			  System.out.println("--->"+ s);
 		  }
+	  }
+	  
+	  public void createTableAppClient() {
+
+	    log.info("Creating tables");
+
+	    jdbcTemplate.execute("DROP TABLE appClient IF EXISTS");
+	    jdbcTemplate.execute("CREATE TABLE appClient(" +
+	        "id SERIAL, clientId VARCHAR(255), clientSecret VARCHAR(12), redirectUri1 VARCHAR(255), redirectUri2 VARCHAR(255), scope VARCHAR(255), nome VARCHAR(255))");
+
+
+	    // Uses JdbcTemplate's batchUpdate operation to bulk load data
+	    jdbcTemplate.update("INSERT INTO appClient (clientId, clientSecret, redirectUri1, redirectUri2, scope, nome) VALUES ('articles-client', 'secret', 'http://localhost:8080/login/oauth2/code/articles-client-oidc', 'http://localhost:8080/authorized', 'articles.read', 'SEGAUT')");
+	    jdbcTemplate.update("INSERT INTO appClient (clientId, clientSecret, redirectUri1, redirectUri2, scope, nome) VALUES ('demo-client', 'secret', 'http://localhost:8090/login/oauth2/code/articles-client-oidc', 'http://localhost:8080/authorized', 'articles.read', 'SEGAUT')");
+
+	    log.info("qyery:");
+	    List<Usuario>lst = jdbcTemplate.query("select * from usuario", (rs, rowNum) ->
+        new Usuario(
+                rs.getLong("id_usuario"),
+                rs.getString("ds_login"),
+                rs.getString("ds_senha"),
+                rs.getString("nm_pessoa_fisica")
+        )	);
+	    for( Usuario u: lst) {
+	    	System.out.println(u);
+	    }
 	  }
 	  
 	  public void createTable() {

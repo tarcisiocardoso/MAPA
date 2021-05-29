@@ -32,7 +32,7 @@ public class SecurityConfig {
       System.out.println(">>>>defaultSecurityFilterChain<<<<");
         http
         .authorizeRequests()
-          .antMatchers("/", "/home", "/styles_java/**", "/segaut/**").permitAll()
+          .antMatchers("/", "/home", "/erro**", "/styles_java/**", "/segaut/**").permitAll()
           .anyRequest().authenticated()
           .and()
         .formLogin()

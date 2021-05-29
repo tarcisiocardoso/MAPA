@@ -49,15 +49,17 @@ public class CustomUserDetailsService implements UserDetailsService{
 		}catch(DataAccessException e) {
 			System.err.println(login+" não encontrado no banco: "+e.getMessage());
 		}
-		
-		List<Usuario> lst = findByUID(login);
-		usuario = lst.size()> 0? lst.get(0):null;
-		System.out.println(usuario);
+		if( usuario == null ) {
+			List<Usuario> lst = findByUID(login);
+			usuario = lst.size()> 0? lst.get(0):null;
+			System.out.println(usuario);
+		}
 //		UserDetails user = User.withDefaultPasswordEncoder()
 //		          .username("adm")
 //		          .password("123")
 //		          .roles("USER")
 //		          .build();
+		
 		
 		if( usuario == null) throw new RuntimeException("Usuário não encontrado ");
 		

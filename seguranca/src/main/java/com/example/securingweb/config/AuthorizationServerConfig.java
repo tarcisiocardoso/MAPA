@@ -1,5 +1,6 @@
 package com.example.securingweb.config;
 
+import com.example.securingweb.service.CustomClientRegistrationRepository;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
@@ -29,18 +30,20 @@ public class AuthorizationServerConfig {
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
         System.out.println(">>>>registeredClientRepository<<<<<");
-        RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-          .clientId("articles-client")
-          .clientSecret("secret")
-          .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
-          .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-          .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-          .redirectUri("http://localhost:8080/login/oauth2/code/articles-client-oidc")
-          .redirectUri("http://localhost:8080/authorized")
-          .scope(OidcScopes.OPENID)
-          .scope("articles.read")
-          .build();
-        return new InMemoryRegisteredClientRepository(registeredClient);
+//        RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
+//          .clientId("articles-client")
+//          .clientSecret("secret")
+//          .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
+//          .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+//          .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+//          .redirectUri("http://localhost:8080/login/oauth2/code/articles-client-oidc")
+//          .redirectUri("http://localhost:8080/authorized")
+//          .scope(OidcScopes.OPENID)
+//          .scope("articles.read")
+//          .build();
+//        return new InMemoryRegisteredClientRepository(registeredClient);
+        
+        return new CustomClientRegistrationRepository();
     }
 
     @Bean

@@ -1,5 +1,8 @@
-
 spring:
+    erro:
+        path: "/erro"
+        whitelabel:
+            enabled: true
     ldap:
         embedded:
             ldif: "classpath:test-server.ldif"
