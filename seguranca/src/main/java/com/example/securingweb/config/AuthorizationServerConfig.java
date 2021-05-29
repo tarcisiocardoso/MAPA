@@ -1,4 +1,4 @@
-package com.example.securingweb;
+package com.example.securingweb.config;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;

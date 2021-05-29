@@ -1,4 +1,13 @@
- 
+
+spring:
+    ldap:
+        embedded:
+            ldif: "classpath:test-server.ldif"
+            base-dn: "dc=springframework,dc=org"
+            url: "ldap://localhost:8389"
+            port: 8389
+            validation:
+                enabled: false 
 server:
   port: 9000
 
