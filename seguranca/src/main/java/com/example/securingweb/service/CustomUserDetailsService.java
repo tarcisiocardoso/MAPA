@@ -94,9 +94,6 @@ public class CustomUserDetailsService implements UserDetailsService{
 			person.ds_senha = hash;
 			
 			System.out.println( person );
-//			person.setDescription(context.getStringAttribute("description"));
-//			person.setPhone(context.getStringAttribute("telephoneNumber"));
-
 			return person;
 		}
 	};
