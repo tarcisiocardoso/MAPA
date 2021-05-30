@@ -31,6 +31,9 @@ public class SecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
       System.out.println(">>>>defaultSecurityFilterChain<<<<");
         http
+//        .oauth2Login()
+//        	.userInfoEndpoint()
+//        		.oidcUserService(oidcUserService)
         .authorizeRequests()
           .antMatchers("/", "/home", "/erro**", "/styles_java/**", "/segaut/**").permitAll()
           .anyRequest().authenticated()
@@ -46,49 +49,6 @@ public class SecurityConfig {
           .deleteCookies("JSESSIONID");
         return http.build();
     }
-    
-//    @Bean
-//	Object configure(AuthenticationManagerBuilder auth) throws Exception {
-//		System.out.println(">>>>>WebSecurityConfig<<<<");
-//		auth
-//			.ldapAuthentication()
-//				.userDnPatterns("uid={0},ou=people")
-//				.groupSearchBase("ou=groups")
-//				.contextSource()
-//					.url("ldap://localhost:8389/dc=springframework,dc=org")
-//					.and()
-//				.passwordCompare()
-//					.passwordEncoder(new BCryptPasswordEncoder())
-//					.passwordAttribute("userPassword");
-//	}
-//    @Bean
-//    UserDetailsService users() {
-//      System.out.println(">>>>users<<<<");
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//          .username("adm")
-//          .password("123")
-//          .roles("USER")
-//          .build();
-//        return new InMemoryUserDetailsManager(user);
-//    }
-
-//    @Bean
-//    UserDetailsService users() {
-//      System.out.println(">>>>users<<<<");
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//          .username("adm")
-//          .password("123")
-//          .roles("USER")
-//          .build();
-//        return new UserDetailsService() {
-//			
-//			@Override
-//			public UserDetails loadUserByUsername(String arg0) throws UsernameNotFoundException {
-//				System.out.println(">>>>>>bla<<<<<<<<<<<<<<<");
-//				return user;
-//			}
-//		};
-//    }
     
     @Bean
     UserDetailsService users() {

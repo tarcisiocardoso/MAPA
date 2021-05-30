@@ -61,14 +61,22 @@ public class CustomUserDetailsService implements UserDetailsService{
 //		          .build();
 		
 		
-		if( usuario == null) throw new RuntimeException("Usuário não encontrado ");
+		if( usuario == null) throw new UsernameNotFoundException("Usuário não encontrado"); //throw new RuntimeException("Usuário não encontrado ");
 		
 		UserDetails user = User.withDefaultPasswordEncoder()
-	        .username(usuario.nm_pessoa_fisica)
+	        .username( usuario.id_usuario+":"+usuario.ds_login+":"+	usuario.nm_pessoa_fisica )
 	        .password(usuario.ds_senha)
 	        .roles("USER")
+	        .roles("OUTRA")
 	        .build();				
+//		return user;
+//		usuario.ds_senha = user.getPassword();
+//		System.out.println("--->"+usuario);
 		return user;
+		
+		
+//		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), usuario.getAuthorities() );
+
 	}
 	
 	private List<Usuario> findByUID(String uid) {
