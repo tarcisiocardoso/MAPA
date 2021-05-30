@@ -14,7 +14,7 @@ public class MainController {
 		return "greeting";
 	}
 
-	@GetMapping("/logout")
+	@GetMapping("/perform_logout")
 	public String logout(Model model) {
 		return "sair";
 	}

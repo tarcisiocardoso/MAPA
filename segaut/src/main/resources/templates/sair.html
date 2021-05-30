@@ -3,12 +3,14 @@
 
 function logout() {
     console.log('.................................');
-//   let token = Cookie.get('JSESSIONID');
-//   Cookie.delete('access_token');
-//   Cookie.delete('id_token');
+//   let token = document.cookie.get('JSESSIONID');
+//   document.cookie.delete('access_token');
+//   document.cookie.delete('id_token');
+    document.cookie = "JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 //   let logoutURL = "http://localhost:9000/auth/realms/baeldung/protocol/openid-connect/logout?id_token_hint=" + token + "&post_logout_redirect_uri=" + this.redirectUri;
   let logoutURL = "http://localhost:9000/perform_logout";
   window.location.href = logoutURL;
+    // fetch("/lo)
 }
 </script>
 
