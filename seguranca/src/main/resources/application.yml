@@ -1,9 +1,32 @@
 spring:
+
+    datasource:
+        url: "jdbc:oracle:thin:@10.255.1.80:1521:mapadup"
+        username: "NEW_AUTENTICACAO_APL"
+        password: "NEW_AUTENTICACAO_APL"
+        
     erro:
         path: "/erro"
         whitelabel:
             enabled: true
+            
+            
+# spring.ldap.url=ldap://server.domain.com:389
+# spring.ldap.base=OU=Employees,OU=Users,DC=domain,DC=com
+# spring.ldap.username=myuserid
+# spring.ldap.password=secretthingy       
+    
     ldap:
+#         urls: "ldap://192.168.2.51:389"
+#         port: 389
+#         base: "DC=mapahomolog,DC=net"
+#         username: "user_wso2"
+#         password: "password"
+#         manager:
+#             dn: CN=toto,OU=CDS,OU=Company_Commun,DC=west,DC=app,DC=company,DC=com
+#         password: toto    
+#         grpAdmin : GRP_PROJECT_ADMIN
+#         grpUser : GRP_PROJECT_ADMIN
         embedded:
             ldif: "classpath:test-server.ldif"
             base-dn: "dc=springframework,dc=org"
@@ -11,6 +34,11 @@ spring:
             port: 8389
             validation:
                 enabled: false 
+
+# spring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe
+# spring.datasource.username=username
+# spring.datasource.password=password
+
 server:
   port: 9000
 

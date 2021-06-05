@@ -1,4 +1,4 @@
-package com.example.securingweb.config;
+package br.gov.mapa.seguranca.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

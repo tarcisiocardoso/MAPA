@@ -7,8 +7,9 @@ logging:
     org.springframework.web: INFO
     org.springframework.security: INFO
     org.springframework.security.oauth2: INFO
-
+url: "bla"
 spring:
+  resource-uri: http://localhost:8090
   security:
     oauth2:
       client:

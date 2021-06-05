@@ -1,4 +1,4 @@
-package com.example.securingweb.repository;
+package br.gov.mapa.seguranca.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.example.securingweb.model.AppClient;
+import br.gov.mapa.seguranca.model.AppClient;
 
 @Repository
 @SuppressWarnings("deprecation")

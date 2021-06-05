@@ -1,10 +1,11 @@
-package com.example.securingweb.service;
+package br.gov.mapa.seguranca.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import javax.naming.ldap.LdapName;
+import javax.security.auth.login.LoginException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -20,7 +21,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.example.securingweb.model.Usuario;
+import br.gov.mapa.seguranca.jaas.JAASLoginModule;
+import br.gov.mapa.seguranca.jaas.UserVO;
+import br.gov.mapa.seguranca.model.Usuario;
+
 import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
 public class CustomUserDetailsService implements UserDetailsService{
@@ -32,11 +36,16 @@ public class CustomUserDetailsService implements UserDetailsService{
   
 	@Autowired
 	LdapTemplate ldapTemplate;
+	
+	@Autowired
+	JAASLoginModule jAASLoginModule;
+	
   
 	@SuppressWarnings("deprecation")
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		System.out.println(">>>>>>bla lalalalalalal<<<<<<<<<<<<<<<");
+		/*
 		Usuario usuario = null;
 		try {
 			usuario = jdbcTemplate.queryForObject(QUERY, new Object[] { login }, new RowMapper<Usuario>() {
@@ -73,10 +82,38 @@ public class CustomUserDetailsService implements UserDetailsService{
 //		usuario.ds_senha = user.getPassword();
 //		System.out.println("--->"+usuario);
 		return user;
-		
+		*/
+		UserVO user = null;
+		try {
+			user = jAASLoginModule.login(login);
+			if( user.getDbSenha() != null && !user.getDbSenha().isEmpty() ) {
+//				try {
+//					jAASLoginModule.carregarDados();
+//				} catch (Exception e) {
+//					throw new LoginException(e.getMessage() );
+//				}
+			}else {
+				String pass= jAASLoginModule.getUserRedePass();
+				user.setDbSenha(pass);
+//				jAASLoginModule.logingRedeOK();
+			}
+		} catch (LoginException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 //		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), usuario.getAuthorities() );
 
+		String id = user.getIdUsuario()+"";
+//		String login = user.getDsLogin();
+		String nome = user.getNome();
+		UserDetails u = User.withDefaultPasswordEncoder()
+		        .username( id+":"+login+":"+nome )
+		        .password(user.getDbSenha())
+		        .roles("USER")
+		        .roles("OUTRA")
+		        .build();
+		return u;
 	}
 	
 	private List<Usuario> findByUID(String uid) {

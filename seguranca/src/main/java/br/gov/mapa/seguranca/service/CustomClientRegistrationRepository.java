@@ -1,4 +1,4 @@
-package com.example.securingweb.service;
+package br.gov.mapa.seguranca.service;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -10,8 +10,8 @@ import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 
-import com.example.securingweb.model.AppClient;
-import com.example.securingweb.repository.AppClientRepository;
+import br.gov.mapa.seguranca.model.AppClient;
+import br.gov.mapa.seguranca.repository.AppClientRepository;
 
 public class CustomClientRegistrationRepository implements RegisteredClientRepository{
 

@@ -1,4 +1,4 @@
-package com.example.securingweb.model;
+package br.gov.mapa.seguranca.model;
 
 public class Customer {
 	  public long id;

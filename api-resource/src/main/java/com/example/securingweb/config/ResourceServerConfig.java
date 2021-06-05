@@ -1,4 +1,4 @@
-package com.example.securingweb;
+package com.example.securingweb.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -9,9 +9,9 @@ public class ResourceServerConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.mvcMatcher("/articles/**")
+        http.mvcMatcher("/**")
           .authorizeRequests()
-          .mvcMatchers("/articles/**")
+          .mvcMatchers("/**")
           .access("hasAuthority('SCOPE_articles.read')")
           .and()
           .oauth2ResourceServer()

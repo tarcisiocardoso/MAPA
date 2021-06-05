@@ -7,8 +7,10 @@ logging:
     org.springframework.web: INFO
     org.springframework.security: INFO
     org.springframework.security.oauth2: INFO
-
+      
 spring:
+  rest:
+    basePath: /api
   security:
     oauth2:
       resourceserver:

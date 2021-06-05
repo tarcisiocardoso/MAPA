@@ -1,4 +1,4 @@
-package com.example.securingweb;
+package br.gov.mapa.seguranca;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,26 +1,13 @@
-package com.example.securingweb.config;
+package br.gov.mapa.seguranca.config;
 
-import java.util.Collections;
-
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
-import org.springframework.security.ldap.DefaultSpringSecurityContextSource;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.example.securingweb.service.CustomUserDetailsService;
+import br.gov.mapa.seguranca.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -34,8 +21,18 @@ public class SecurityConfig {
 //        .oauth2Login()
 //        	.userInfoEndpoint()
 //        		.oidcUserService(oidcUserService)
+        
+//        .mvcMatcher("/me/**")
+//	        .authorizeRequests()
+//	        .mvcMatchers("/articles/**")
+//	        .access("hasAuthority('SCOPE_articles.read')")
+//	        .and()
+//	        .oauth2ResourceServer()
+//	        .jwt()
+//	        .and()
+        
         .authorizeRequests()
-          .antMatchers("/", "/home", "/erro**", "/styles_java/**", "/segaut/**").permitAll()
+          .antMatchers("/", "/api/**", "/home", "/erro**", "/styles_java/**", "/segaut/**").permitAll()
           .anyRequest().authenticated()
           .and()
         .formLogin()
@@ -47,6 +44,7 @@ public class SecurityConfig {
           .logoutUrl("/perform_logout")
           .invalidateHttpSession(true)
           .deleteCookies("JSESSIONID");
+    
         return http.build();
     }
     

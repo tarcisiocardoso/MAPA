@@ -34,15 +34,15 @@ objectclass: top
 objectclass: organizationalUnit
 ou: otherpeople
 
-dn: uid=ben,ou=people,dc=springframework,dc=org
+dn: uid=givaldo.oliveira,ou=people,dc=springframework,dc=org
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
-cn: Ben Alex
-sn: Alex
-uid: ben
-userPassword: 123
+cn: Givaldo Oliveira
+sn: Givaldo
+uid: givaldo.oliveira
+userPassword: m@p@2020
 
 dn: uid=bob,ou=people,dc=springframework,dc=org
 objectclass: top

@@ -1,4 +1,4 @@
-package com.example.securingweb.model;
+package br.gov.mapa.seguranca.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

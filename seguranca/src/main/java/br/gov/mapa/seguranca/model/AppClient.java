@@ -1,4 +1,4 @@
-package com.example.securingweb.model;
+package br.gov.mapa.seguranca.model;
 
 //id SERIAL, clientId VARCHAR(255), clientSecret VARCHAR(12), redirectUri1 VARCHAR(255), redirectUri2 VARCHAR(255), scope VARCHAR(255), nome VARCHAR(255))");
 public class AppClient {
