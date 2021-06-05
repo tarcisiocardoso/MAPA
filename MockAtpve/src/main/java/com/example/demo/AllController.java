@@ -129,7 +129,7 @@ public class AllController {
 	        	}
 	        }
 	        System.out.println(arrRetorno.toString() );
-	        if( qtd > 10 ) return arrRetorno.toString();
+	        if( qtd > 0 ) return arrRetorno.toString(); // if( qtd > 10 ) return arrRetorno.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
