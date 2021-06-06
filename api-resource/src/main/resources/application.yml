@@ -11,6 +11,11 @@ logging:
 spring:
   rest:
     basePath: /api
+  datasource:
+    url: "jdbc:oracle:thin:@10.255.1.80:1521:mapadup"
+    username: "NEW_AUTENTICACAO_APL"
+    password: "NEW_AUTENTICACAO_APL"
+
   security:
     oauth2:
       resourceserver:

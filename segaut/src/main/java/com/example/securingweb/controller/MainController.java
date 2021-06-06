@@ -2,6 +2,8 @@ package com.example.securingweb.controller;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -11,36 +13,52 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.reactive.function.client.WebClient;
-
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.Fuseable.SynchronousSubscription;
 
 @Controller
 public class MainController {
     
-	@Value( "${spring.security.oauth2.client.provider.spring.issuer-uri}" )
-	private String providerUrl;
-	
+	@Value( "${spring.resource-uri}" )
+	private String resourceUri;
+
 	@Autowired
     private WebClient webClient;
 	
+	// @GetMapping(value = "/greeting")
+    // public Object getArticles(
+    //   @RegisteredOAuth2AuthorizedClient("articles-client-authorization-code") OAuth2AuthorizedClient authorizedClient
+    // ) {
+    //     return this.webClient
+    //       .get()
+    //       .uri(resourceUri+"/me")
+    //       .attributes(oauth2AuthorizedClient(authorizedClient))
+    //       .retrieve()
+    //       .bodyToMono(HashMap.class)
+    //       .block();
+    // }
+
+
     @GetMapping("/greeting")
 	public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model,
 			@RegisteredOAuth2AuthorizedClient("articles-client-authorization-code") OAuth2AuthorizedClient authorizedClient
 			) {
 		model.addAttribute("name", name);
 		
-		System.out.println(">>>>-"+providerUrl);
+		System.out.println(">>>>-"+resourceUri);
 		System.out.println("----->"+ authorizedClient.getPrincipalName() );
 		
 		Object o = this.webClient
 		          .get()
-		          .uri(providerUrl+"/api/me")
+		          .uri(resourceUri+"/me")
 		          .attributes(oauth2AuthorizedClient(authorizedClient))
 		          .retrieve()
-		          .bodyToMono(String[].class)
-		          .block();
+		          .bodyToMono(HashMap.class)
+				  .block();
+				  
+		model.addAttribute("user", o);
 		
-		System.out.println("======>"+o);
+		System.out.println("======>"+o.getClass().getName());
 		
 		return "greeting";
 	}

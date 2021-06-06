@@ -1,0 +1,31 @@
+package com.example.securingweb.controller;
+
+import java.security.Principal;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.securingweb.model.UserVO;
+import com.example.securingweb.repository.UserRepository;
+
+@RestController
+public class UserController {
+
+	@Autowired
+	UserRepository repository;
+	
+	@GetMapping("/me")
+    public UserVO getArticles(Principal principal) throws Exception {
+		if( principal == null) {
+			throw new RuntimeException("Usuario não encontrado");
+		}
+		System.out.println("Principal no me: "+principal.getName());
+		String split[] =  principal.getName().split(":");
+		String id = split[0];
+		
+		UserVO vo = repository.getUser(id);
+		return vo;
+
+    }
+}

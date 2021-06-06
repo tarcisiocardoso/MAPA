@@ -11,7 +11,7 @@ public class ArticlesController {
     @GetMapping("/articles")
     public String[] getArticles(Principal principal) {
 		
-    	System.out.println("Principal: "+principal.getName());
+    	System.out.println("Principal artigo: "+principal.getName());
     	
         return new String[]{"Article 1", "Article 2", "Article 3"};
     }
