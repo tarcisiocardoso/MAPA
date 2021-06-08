@@ -1,5 +1,11 @@
 package br.gov.mapa.seguranca.jaas;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public final class UserVO {
 
@@ -201,4 +207,56 @@ public final class UserVO {
     public void setDsAssinatura(String dsAssinatura) {
         this.dsAssinatura = dsAssinatura;
     }
+
+	public UserDetails getUserDetails() {
+		return new UserDetails() {
+			
+			@Override
+			public boolean isEnabled() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public boolean isCredentialsNonExpired() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public boolean isAccountNonLocked() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public boolean isAccountNonExpired() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public String getUsername() {
+				String id = getIdUsuario()+"";
+				String login = getDsLogin();
+				String nome = getNome();
+				return id+":"+login+":"+nome;
+			}
+			
+			@Override
+			public String getPassword() {
+				System.out.println("pass dentro do vo: "+getDbSenha());
+				return getDbSenha();
+			}
+			
+			@Override
+			public Collection<? extends GrantedAuthority> getAuthorities() {
+				Collection<SimpleGrantedAuthority> aut = new ArrayList<SimpleGrantedAuthority>();
+				aut.add( new SimpleGrantedAuthority("TESTE001") );
+				aut.add( new SimpleGrantedAuthority("TESTE002") );
+//				aut.add( new SimpleGrantedAuthority(jaasRole.toString()) );
+				return aut;
+			}
+		};
+	}
 }

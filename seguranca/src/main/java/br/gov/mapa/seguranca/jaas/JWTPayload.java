@@ -1,5 +1,6 @@
 package br.gov.mapa.seguranca.jaas;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import sun.misc.BASE64Decoder;
 
@@ -70,7 +71,7 @@ public class JWTPayload {
         json = new JSONObject(value);
     }
 
-    public String getClaim(String key) {
+    public String getClaim(String key) throws JSONException {
         if (!json.has(key)) {
             return null;
         }

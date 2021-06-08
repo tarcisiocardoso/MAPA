@@ -38,8 +38,8 @@ public class MediatorPassword {
 //            ps.setString(1, senha);
 //            ResultSet rs = ps.executeQuery();
         	
-        	encryptPassword = jdbcTemplate.queryForObject(sql, new Object[]{senha}, (rs, rowNum) -> rs.getString(1));        	
-        	
+        	byte bts[] = jdbcTemplate.queryForObject(sql, new Object[]{senha}, (rs, rowNum) -> rs.getBytes(1));        	
+        	encryptPassword = new String(bts);
 //            if (rs != null && rs.next()) {
 //                encryptPassword = rs.getString("senha");
 //                rs.close();
