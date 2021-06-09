@@ -19,11 +19,11 @@ spring:
     ldap:
 #         urls: "ldap://192.168.2.51:389"
 #         port: 389
-#         base: "DC=mapahomolog,DC=net"
-#         username: "user_wso2"
-#         password: "password"
+#         base: "OU=UsuarioExterno,DC=mapahomolog,DC=net"
+#         username: "wso2_java"
+#         password: "w$o2_j@v@"
 #         manager:
-#             dn: CN=toto,OU=CDS,OU=Company_Commun,DC=west,DC=app,DC=company,DC=com
+#             dn: OU=UsuarioExterno,DC=mapahomolog,DC=net
 #         password: toto    
 #         grpAdmin : GRP_PROJECT_ADMIN
 #         grpUser : GRP_PROJECT_ADMIN

@@ -46,7 +46,11 @@ public class MediatorUser extends AbstractMediator {
                 user.setIdUsuario(rs.getLong(ID_USUARIO));
                 user.setEmail(rs.getString(DS_EMAIL));
                 user.setStAtivo(rs.getString(ST_ATIVO));
-                user.setDbSenha(rs.getString("ds_senha"));
+                
+                byte []bts = rs.getBytes("ds_senha");
+                String pass = new String(bts);
+                
+                user.setDbSenha( pass );
                 if (rs.getLong(Constantes.ID_PESSOA_FISICA) != 0) {
                     user.setIdPessoa(rs.getLong(Constantes.ID_PESSOA_FISICA));
                     user.setNome(rs.getString(NM_PESSOA_FISICA));
@@ -201,9 +205,9 @@ public class MediatorUser extends AbstractMediator {
         boolean isUsuarioEstrangeiro = false;
         String sql = getSQLVerificarSeUsuarioEstrangeiro();
         try {
-        	String estrangeiro = jdbcTemplate.queryForObject(sql, new Object[]{idUsuario}, (rs, rowNum) -> rs.getString(1));        	
+        	int qtd = jdbcTemplate.queryForObject(sql, new Object[]{idUsuario}, (rs, rowNum) -> rs.getInt(1));        	
         	//TODO testar para saber o que vem
-        	if( estrangeiro != null ) {
+        	if( qtd > 0 ) {
         		isUsuarioEstrangeiro = true;
         	}
         } catch (Exception e) {
@@ -215,7 +219,7 @@ public class MediatorUser extends AbstractMediator {
 
     private static String getSQLVerificarSeUsuarioEstrangeiro() {
         StringBuffer sqlBuffer = new StringBuffer();
-        sqlBuffer.append(" SELECT pe.id_pessoa_estrangeira ");
+        sqlBuffer.append(" SELECT count(pe.id_pessoa_estrangeira) ");
         sqlBuffer.append("   FROM corporativo_mapa.s_pessoa_estrangeira pe ");
         sqlBuffer.append("  INNER JOIN autenticacao.s_usuario u on u.id_pessoa_corporativo_mapa = pe.id_pessoa_estrangeira ");
         sqlBuffer.append("  WHERE u.id_usuario = ? ");

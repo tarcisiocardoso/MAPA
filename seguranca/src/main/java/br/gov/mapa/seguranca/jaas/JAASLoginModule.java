@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.security.auth.login.LoginException;
 
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,15 +40,15 @@ public class JAASLoginModule {
 	
     public enum LoginMethod {PASSWD, JWT_MAPA, LOGIN_UNICO}
 
-    private String username;
-    private String password;
-    private long idPessoa;
-    private long idUsuario;
-    private String documento;
-    private String name;
-    private String email;
-    private boolean ativo;
-    private String stAtivo;
+//    private String username;
+//    private String password;
+//    private long idPessoa;
+//    private long idUsuario;
+//    private String documento;
+//    private String name;
+//    private String email;
+//    private boolean ativo;
+//    private String stAtivo;
 
     private JWTPayload jwt;
     private String contextoAplicacao;
@@ -62,9 +63,9 @@ public class JAASLoginModule {
     /**
      * {@inheritDoc}
      */
-    public UserVO login(String username) throws LoginException {
+    public UserVO login(String login) throws LoginException {
         LOGGER.debug("Início do método de login");
-        this.username = username;
+//        this.username = login;
         try {
 //            limparPrincipals();
 //            handleCallbacks();
@@ -75,7 +76,8 @@ public class JAASLoginModule {
 //                return autenticarComJWT(mapaJwtAssertion);
 //            }
 
-            UserVO user = mediatorUser.getUserByCPF(username);
+//            UserVO user = mediatorUser.getUserByCPF(username);
+        	UserVO user = mediatorUser.getUser(login);
             return user;
             // Tenta autenticar com o certificado
 //            if (user != null && user.getDsAssinatura() != null && !"".equals(user.getDsAssinatura())) {
@@ -84,21 +86,21 @@ public class JAASLoginModule {
 //            //Tenta autenticar com usuário e senha
 //            return autenticarComUsuarioESenha(user);
         } catch (SQLException ex) {
-            LOGGER.error(Constantes.MSG_ERRO_AUTENTICACAO + username, ex);
+            LOGGER.error(Constantes.MSG_ERRO_AUTENTICACAO + login, ex);
             throw new LoginException(ex.getMessage()); //NOPMD
         } catch (Exception ex) {
-            LOGGER.error(Constantes.MSG_ERRO_AUTENTICACAO + username, ex);
+            LOGGER.error(Constantes.MSG_ERRO_AUTENTICACAO + login, ex);
             throw new LoginException(ex.getMessage()); //NOPMD
         }
     }
-    public String getUserRedePass( ) {
+    public String getUserRedePass(String username ) {
     	List<UserVO> lst = autenticadorAD.findByUID(username);
     	if( lst != null && lst.size() > 0 ) {
     		return lst.get(0).getDbSenha();
     	}
     	return null;
     }
-    public boolean logingRedeOK( ) {
+    public boolean logingRedeOK(String username, String password) {
     	return this.autenticadorAD.autenticar(username, password);
     }
     
@@ -107,7 +109,7 @@ public class JAASLoginModule {
      * @param token
      * @return
      * @throws Exception
-     */
+     
     private boolean autenticarComJWT(String token) throws Exception {
         jwt = new JWTPayload(token);
 
@@ -158,18 +160,21 @@ public class JAASLoginModule {
         ativo = stAtivo.equalsIgnoreCase("A");
 
         return true;
-    }
+    }*/
 
     private boolean autenticarComCertificado(UserVO userVO) throws Exception {
         boolean autenticado = true;
         LOGGER.info("Autenticando usuário por Certificado Digital...");
-        username = userVO.getDsLogin();
-        idUsuario = userVO.getIdUsuario();
-        email = userVO.getEmail();
-        stAtivo = userVO.getStAtivo();
-        idPessoa = userVO.getIdPessoa();
-        name = userVO.getNome();
-        documento = userVO.getDocumento();
+        String username = userVO.getDsLogin();
+        Long idUsuario = userVO.getIdUsuario();
+        String email = userVO.getEmail();
+        String stAtivo = userVO.getStAtivo();
+        Long idPessoa = userVO.getIdPessoa();
+        String name = userVO.getNome();
+        String documento = userVO.getDocumento();
+        boolean ativo = false;
+       
+        String password = userVO.getDbSenha();
 
         String[] dados = userVO.getDsAssinatura().split(",");
         String assinatura = dados[0].split(":")[1].replaceAll("\"", "");
@@ -212,35 +217,35 @@ public class JAASLoginModule {
         mediatorUser.cleanSign(idUsuarioCert);
     }
 
-    private boolean autenticarComUsuarioESenha(UserVO u) throws Exception {
-        UserVO user = mediatorUser.getUser(u.getDsLogin());
-        idUsuario = user.getIdUsuario();
-        email = user.getEmail();
-        stAtivo = user.getStAtivo();
-        idPessoa = user.getIdPessoa();
-        name = user.getNome();
-        documento = user.getDocumento();
-        password = user.getDbSenha();
-
-        if (LOGIN_UNICO.equals(loginMethod)) {
-            ativo = true;
-            autenticadoComLoginUnico = true;
-
-            mediatorLoginUnico.vincularAplicacaoAoUsuarioLoginUnico(idUsuario, stAtivo, contextoAplicacao);
-            return true;
-        }
-
-        //Se usuário de rede, tenta autenticar no AD
-        String passwordClean = password;
-        boolean autenticado = autenticador.autenticar(u.getDsLogin(), passwordClean, documento);
-        if (!autenticado) {
-            LOGGER.debug("Usuario nao autenticado");
-            throw new LoginException(Constantes.MSG_ERRO_SENHA_INVALIDA);
-        }
-
-        ativo = autenticador.isUsuarioAtivo(u.getDsLogin());
-        return true;
-    }
+//    private boolean autenticarComUsuarioESenha(UserVO u) throws Exception {
+//        UserVO user = mediatorUser.getUser(u.getDsLogin());
+//        idUsuario = user.getIdUsuario();
+//        email = user.getEmail();
+//        stAtivo = user.getStAtivo();
+//        idPessoa = user.getIdPessoa();
+//        name = user.getNome();
+//        documento = user.getDocumento();
+//        password = user.getDbSenha();
+//
+//        if (LOGIN_UNICO.equals(loginMethod)) {
+//            ativo = true;
+//            autenticadoComLoginUnico = true;
+//
+//            mediatorLoginUnico.vincularAplicacaoAoUsuarioLoginUnico(idUsuario, stAtivo, contextoAplicacao);
+//            return true;
+//        }
+//
+//        //Se usuário de rede, tenta autenticar no AD
+//        String passwordClean = password;
+//        boolean autenticado = autenticador.autenticar(u.getDsLogin(), passwordClean, documento);
+//        if (!autenticado) {
+//            LOGGER.debug("Usuario nao autenticado");
+//            throw new LoginException(Constantes.MSG_ERRO_SENHA_INVALIDA);
+//        }
+//
+//        ativo = autenticador.isUsuarioAtivo(u.getDsLogin());
+//        return true;
+//    }
 /*
     private void handleCallbacks() throws LoginException {
         if (callbackHandler == null) {
@@ -289,9 +294,9 @@ public class JAASLoginModule {
     }
     */
 
-    public void carregarDados() throws Exception {
+    public void carregarDados(UserVO vo) throws Exception {
         // Referente às informações do usuario autenticado.
-        carregarInformacoesUsuario();
+        carregarInformacoesUsuario(vo);
 
         // Quando o Login é com JWT, filtra apenas pelos GRUPOS definidos neste JWT, evita consulta desnecessária
         String[] idsGrupos = null;
@@ -308,12 +313,12 @@ public class JAASLoginModule {
         carregarGruposUsuario(idsGrupos);
 
         // Referente aos módulos de acesso que o usuario autenticado tem permissão
-        carregarModulosUsuario(idsGrupos);
+        carregarModulosUsuario(idsGrupos, vo.getIdUsuario());
 
-        mediatorUser.registraUltimoLogin(idUsuario);
+        mediatorUser.registraUltimoLogin(vo.getIdUsuario() );
     }
 
-    private void carregarModulosUsuario(String[] idsGrupos) throws Exception {
+    private void carregarModulosUsuario(String[] idsGrupos, long idUsuario) throws Exception {
     	//TODO o que fazer com o modulo do usuario
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	Collection<SimpleGrantedAuthority> aut = new ArrayList<SimpleGrantedAuthority>();
@@ -341,8 +346,15 @@ public class JAASLoginModule {
 //        }
     }
 
-    private JAASPrincipal carregarInformacoesUsuario() {
-//    	UserVO user = mediatorUser.getUserByCPF(login);
+    private JAASPrincipal carregarInformacoesUsuario(UserVO userVO) {
+    	String username = userVO.getDsLogin();
+        Long idUsuario = userVO.getIdUsuario();
+        String email = userVO.getEmail();
+        String stAtivo = userVO.getStAtivo();
+        Long idPessoa = userVO.getIdPessoa();
+        String name = userVO.getNome();
+        String documento = userVO.getDocumento();
+        boolean ativo = false;
     			
         JAASPrincipal principal = new JAASPrincipal(username, idUsuario, documento, name, idPessoa, email);
         principal.setAtivo(ativo);
@@ -353,8 +365,13 @@ public class JAASLoginModule {
         principal.setFoto(MediatorFotoAD.FOTO_DEFAULT);
 
         if (jwt != null) {
-            String idPessoaEstrangeira = jwt.getClaim(MapaJWTClaims.ID_PESSO_AESTRANGEIRA.name);
-            principal.setUsuarioEstrangeiro(idPessoaEstrangeira != null);
+        	try {
+	            String idPessoaEstrangeira = jwt.getClaim(MapaJWTClaims.ID_PESSO_AESTRANGEIRA.name);
+	            principal.setUsuarioEstrangeiro(idPessoaEstrangeira != null);
+	        } catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         } else {
             try {
                 principal.setUsuarioEstrangeiro(mediatorUser.isUsuarioEstrangeiro(idUsuario));

@@ -2,10 +2,16 @@ package com.example.securingweb.controller;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
+import java.security.Principal;
+import java.util.Collection;
 import java.util.HashMap;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
@@ -41,13 +47,21 @@ public class MainController {
 
     @GetMapping("/greeting")
 	public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model,
-			@RegisteredOAuth2AuthorizedClient("articles-client-authorization-code") OAuth2AuthorizedClient authorizedClient
+			@RegisteredOAuth2AuthorizedClient("articles-client-authorization-code") OAuth2AuthorizedClient authorizedClient,
+			Authentication authentication
 			) {
 		model.addAttribute("name", name);
 		
 		System.out.println(">>>>-"+resourceUri);
 		System.out.println("----->"+ authorizedClient.getPrincipalName() );
 		
+		Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>)
+		  SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		  boolean hasRole = false;
+		  for (GrantedAuthority authority : authorities) {
+		     System.out.println("authority: "+ authority);
+		  }
+
 		Object o = this.webClient
 		          .get()
 		          .uri(resourceUri+"/me")
@@ -57,8 +71,16 @@ public class MainController {
 				  .block();
 				  
 		model.addAttribute("user", o);
+		// Collection<?extends Object> granted = authentication.getCredentials();
+	    // Collection<?extends GrantedAuthority> granted = authentication.getAuthorities();
+
+	    // for( Object ga: granted) {
+	    // 	System.out.println("Authority: "+ga.toString() );
+	    // }
 		
-		System.out.println("======>"+o.getClass().getName());
+		// model.addAttribute("lst", granted );
+		
+//		System.out.println("======>"+o.getClass().getName());
 		
 		return "greeting";
 	}
