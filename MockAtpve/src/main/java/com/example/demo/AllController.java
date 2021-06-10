@@ -169,7 +169,31 @@ public class AllController {
                 
 		return map;
     }
-    
+  
+    @GetMapping(path="/area-segura/veiculo/crv/buscaTimeLineAtpveComprador", produces = { "application/json"})
+    @CrossOrigin(origins = "*")
+	public Object buscaTimeLineAtpveComprador(final HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String chassi = request.getParameter("chassi");
+        String cpf = request.getParameter("cpf");
+        System.out.println("chassi =====>"+ chassi + " : cpf =====>" + cpf );
+        
+//        if( renavam.equals("00846743211")) {
+//        	response.sendError(HttpStatus.NOT_FOUND.value(), "Prorrogacao não encontrado.");
+//        	return null;
+//        }
+        
+        sleep(1000);
+        
+        ArrayList<TimeLine>lst = new ArrayList<>();
+        lst.add( new TimeLine("ATPV-e", "Autorização para trsnferencia de propriedades", true, "left"));
+        lst.add( new TimeLine("Comfirmação do comprador", "", true, "right"));
+        lst.add( new TimeLine("Comunicado de venda", "", false, "left"));
+        lst.add( new TimeLine("Agendamento de vistoria", "", false, "right"));
+        lst.add( new TimeLine("Vistoria", "", false, "right"));
+        lst.add( new TimeLine("Agendamento de atendimento presencial para trasferência de propriedade", "", false, "right"));
+        lst.add( new TimeLine("trasferência de propriedade", "", false, "right"));
+		return lst;
+    }
   
     @GetMapping(path="/area-segura/veiculo/crv/buscaTimeLineAtpve", produces = { "application/json"})
     @CrossOrigin(origins = "*")
