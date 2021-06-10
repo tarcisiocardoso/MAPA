@@ -19,13 +19,12 @@ public class ArticlesController {
     @Autowired
     private WebClient webClient;
 
-    @GetMapping(value = "/articles")
     public String[] getArticles(
       @RegisteredOAuth2AuthorizedClient("articles-client-authorization-code") OAuth2AuthorizedClient authorizedClient
     ) {
         return this.webClient
           .get()
-          .uri(resourceUri+"/articles")
+          .uri(resourceUri+"/me")
           .attributes(oauth2AuthorizedClient(authorizedClient))
           .retrieve()
           .bodyToMono(String[].class)

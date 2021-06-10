@@ -3,8 +3,14 @@ package com.example.securingweb;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.http.HttpStatus;
@@ -13,6 +19,11 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableWebSecurity
 public class SecurityConfig {
 
+	@Bean
+	public TokenAuthenticationFilter tokenAuthenticationFilter() {
+		return new TokenAuthenticationFilter();
+	}
+	
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // http
@@ -41,6 +52,12 @@ public class SecurityConfig {
           .oauth2Login(oauth2Login ->
             oauth2Login.loginPage("/oauth2/authorization/articles-client-oidc"))
           .oauth2Client(withDefaults());
+        
+        http.addFilterBefore(tokenAuthenticationFilter(), BasicAuthenticationFilter.class);
+        
+//        	addFilterBefore(new ManagementEndpointAuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
+        
         return http.build();
     }
+
 }

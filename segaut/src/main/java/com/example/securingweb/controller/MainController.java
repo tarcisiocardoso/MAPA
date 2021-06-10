@@ -61,7 +61,7 @@ public class MainController {
 		  for (GrantedAuthority authority : authorities) {
 		     System.out.println("authority: "+ authority);
 		  }
-
+//
 		Object o = this.webClient
 		          .get()
 		          .uri(resourceUri+"/me")
@@ -69,7 +69,7 @@ public class MainController {
 		          .retrieve()
 		          .bodyToMono(HashMap.class)
 				  .block();
-				  
+		System.out.println("----->"+ o );
 		model.addAttribute("user", o);
 		// Collection<?extends Object> granted = authentication.getCredentials();
 	    // Collection<?extends GrantedAuthority> granted = authentication.getAuthorities();

@@ -11,22 +11,13 @@ spring:
             enabled: true
             
             
-# spring.ldap.url=ldap://server.domain.com:389
-# spring.ldap.base=OU=Employees,OU=Users,DC=domain,DC=com
-# spring.ldap.username=myuserid
-# spring.ldap.password=secretthingy       
-    
+# ldapsearch -x -h 192.168.2.51 -D "sis.rh" -w "m@p@2017" -b "dc=mapahomolog,dc=net" -s sub "(cn=*)" cn mail sn    
     ldap:
-#         urls: "ldap://192.168.2.51:389"
+#         urls: "ldap://192.168.2.51"
 #         port: 389
-#         base: "OU=UsuarioExterno,DC=mapahomolog,DC=net"
-#         username: "wso2_java"
-#         password: "w$o2_j@v@"
-#         manager:
-#             dn: OU=UsuarioExterno,DC=mapahomolog,DC=net
-#         password: toto    
-#         grpAdmin : GRP_PROJECT_ADMIN
-#         grpUser : GRP_PROJECT_ADMIN
+#         base: "DC=mapahomolog,DC=net"
+#         username: "sis.rh"
+#         password: "m@p@2017"
         embedded:
             ldif: "classpath:test-server.ldif"
             base-dn: "dc=springframework,dc=org"
@@ -34,10 +25,6 @@ spring:
             port: 8389
             validation:
                 enabled: false 
-
-# spring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe
-# spring.datasource.username=username
-# spring.datasource.password=password
 
 server:
   port: 9000

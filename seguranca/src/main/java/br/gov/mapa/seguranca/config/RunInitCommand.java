@@ -59,8 +59,9 @@ public class RunInitCommand implements CommandLineRunner {
 		
 	}
 	public void runLdapQuery() {
-		  
-		  boolean authenticated = ldapTemplate.authenticate("", "(uid=givaldo.oliveira)", "m@p@2020");
+		ldapTemplate.setIgnorePartialResultException(true);
+//		boolean authenticated = ldapTemplate.authenticate("", "(mail=daniela.moraes@agricultura.gov.br)", "!5CrK6%");
+		boolean authenticated = ldapTemplate.authenticate("", "(uid=givaldo.oliveira)", "m@p@2020");
 		  
 //		  ldapTemplate.findOne(query, clazz)
 		  
