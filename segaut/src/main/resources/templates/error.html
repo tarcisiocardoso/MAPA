@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script>
+	function handleOnLoad() {
+		let url = window.location;
+
+		console.log(url.search);
+		let arr = url.search.split('\&');
+		let html='<ul>'
+		for(let x in arr){
+			var itens = arr[x].split('=');
+			console.log(x+": "+arr[x]);
+			html +='<li><b>'+itens[0]+' :</b> '+itens[1]+'</li>';
+		}
+		html+='</ul>'
+		
+		let conteudo = document.getElementById('conteudo');
+		conteudo.innerHTML = html;
+	}
+</script>
+</head>
+
+<body onLoad="handleOnLoad()">
+	<h2>Erro</h2>
+	
+	<p th:text="'===> ' + ${erro} + '!'" />
+	<p th:text="'Codigo: ' +${statusCode} + '!'" />
+	<div id='conteudo'></div>
+</body>
+</html>
