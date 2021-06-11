@@ -8,12 +8,18 @@
 
     <h1>Ver 01 </h1>
     
-    <p th:text="'Ola, ' + ${name} + '!'" />
+    <p th:text="'Ola, ' + ${user.nome} + '!'" />
 
+    <h1>Aplicações</h1>
     <ul th:each="app: ${user.apps}">
-        <li th:text="#{app.nome}">aaaa</li>
+        <li th:text="@{${app.id}+' ->'+${app.nome}}">aaaa</li>
     </ul>
 
+
+    <h1>Grupos</h1>
+    <ul th:each="grupo: ${user.grupos}">
+        <li th:text="@{${grupo.idGrupo}+' ->'+${grupo.nomeGrupo}}">aaaa</li>
+    </ul>
 
 <!--     <p th:text="'authorizedClient, ' + ${authorizedClient} + '!'" /> -->
 

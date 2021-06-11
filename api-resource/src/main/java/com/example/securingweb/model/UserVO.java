@@ -16,5 +16,6 @@ public class UserVO {
     public String dsAssinatura;
     
     public List<JAASApplication> apps;
+	public List<JAASGroup> grupos;
 
 }

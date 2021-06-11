@@ -13,8 +13,10 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import com.example.securingweb.model.JAASApplication;
+import com.example.securingweb.model.JAASGroup;
 import com.example.securingweb.model.UserVO;
 import com.example.securingweb.repository.MediatorApplication;
+import com.example.securingweb.repository.MediatorGroup;
 import com.example.securingweb.repository.MediatorRole;
 import com.example.securingweb.repository.UserRepository;
 
@@ -29,7 +31,9 @@ public class UserService {
 	@Autowired
 	MediatorApplication mediatorApplication;
 	
-
+	@Autowired
+	MediatorGroup mediatorGroup;
+	
 	
 	public UserVO getUser(Principal principal) {
 		UserVO userVo = null;
@@ -52,9 +56,14 @@ public class UserService {
 			userVo = repository.getUser(id);
 			String[] idsAplicacoes = (String[])aplicacoes.toArray(new String[0]);
 			List<JAASApplication> apps = mediatorApplication.getAplicacoesUsuario(id, idsAplicacoes, autenticadoComLoginUnico, principals);
+
 //			mediatorRole.getModulosUsuario(idUsuario, idsGrupos, principals)
 			
 			userVo.apps = apps;
+
+			List<JAASGroup> gruposUsuario = mediatorGroup.getGruposUsuario(id, principals );
+			
+			userVo.grupos = gruposUsuario;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
