@@ -6,9 +6,13 @@
 </head>
 <body>
 
-    <h1>so para ver de quale leh </h1>
+    <h1>Ver 01 </h1>
     
     <p th:text="'Ola, ' + ${name} + '!'" />
+
+    <ul th:each="app: ${user.apps}">
+        <li th:text="#{app.nome}">aaaa</li>
+    </ul>
 
 
 <!--     <p th:text="'authorizedClient, ' + ${authorizedClient} + '!'" /> -->

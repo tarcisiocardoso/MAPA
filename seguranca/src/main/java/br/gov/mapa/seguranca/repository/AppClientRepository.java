@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.WebServerException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -22,7 +23,7 @@ public class AppClientRepository {
 	public Optional<AppClient> findByClientId(String clientId) {
 		Optional<AppClient> retorno = Optional.empty();
 		try {
-			AppClient app = jdbcTemplate.queryForObject("select id, clientId, clientSecret, redirectUri1, redirectUri2, scope, nome from appClient WHERE clientId = ?", new Object[] { clientId }, new RowMapper<AppClient>() {
+			AppClient app = jdbcTemplate.queryForObject("SELECT ID_APLICACAO id, SG_APLICACAO clientId, NM_APLICACAO nome FROM autenticacao.s_aplicacao sa WHERE SG_APLICACAO = ?", new Object[] { clientId }, new RowMapper<AppClient>() {
 				@Override
 				public AppClient mapRow(ResultSet rs, int rowNum) throws SQLException {
 					return create(rs);
@@ -31,6 +32,8 @@ public class AppClientRepository {
 			retorno = Optional.of(app);
 		}catch(DataAccessException e) {
 			System.err.println(clientId+" não encontrado no banco: "+e.getMessage());
+			throw new WebServerException(clientId+" não encontrado no banco: "+e.getMessage(), e);
+			
 		}
 		return retorno;
 	}
@@ -39,9 +42,9 @@ public class AppClientRepository {
 		AppClient app = new AppClient();
 		app.id = rs.getLong("id");
 		app.clientId = rs.getString("clientId");
-		app.clientSecret = rs.getString("clientSecret");
-		app.redirectUri2 = rs.getString("redirectUri2");
-		app.scope = rs.getString("scope");
+		app.clientSecret = "secret"; //rs.getString("clientSecret");
+//		app.redirectUri2 = rs.getString("redirectUri2");
+//		app.scope = rs.getString("scope");
 		app.nome = rs.getString("nome");
 		
 		return app;

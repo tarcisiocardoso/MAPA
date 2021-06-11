@@ -25,7 +25,8 @@
 <body onLoad="handleOnLoad()">
 	<h2>Problema de acesso</h2>
 	
-	
+	<p th:text="'===> ' + ${erro} + '!'" />
+	<p th:text="'Codigo: ' +${statusCode} + '!'" />
 	<div id='conteudo'></div>
 </body>
 </html>

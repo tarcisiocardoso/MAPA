@@ -20,7 +20,7 @@ public class ArticlesController {
     private WebClient webClient;
 
     public String[] getArticles(
-      @RegisteredOAuth2AuthorizedClient("articles-client-authorization-code") OAuth2AuthorizedClient authorizedClient
+      @RegisteredOAuth2AuthorizedClient("SEGAUT-client-authorization-code") OAuth2AuthorizedClient authorizedClient
     ) {
         return this.webClient
           .get()

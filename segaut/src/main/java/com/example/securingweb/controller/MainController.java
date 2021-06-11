@@ -33,7 +33,7 @@ public class MainController {
 	
 	// @GetMapping(value = "/greeting")
     // public Object getArticles(
-    //   @RegisteredOAuth2AuthorizedClient("articles-client-authorization-code") OAuth2AuthorizedClient authorizedClient
+    //   @RegisteredOAuth2AuthorizedClient("SEGAUT-client-authorization-code") OAuth2AuthorizedClient authorizedClient
     // ) {
     //     return this.webClient
     //       .get()
@@ -45,9 +45,9 @@ public class MainController {
     // }
 
 
-    @GetMapping("/greeting")
+    @GetMapping("/userInfo")
 	public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model,
-			@RegisteredOAuth2AuthorizedClient("articles-client-authorization-code") OAuth2AuthorizedClient authorizedClient,
+			@RegisteredOAuth2AuthorizedClient("SEGAUT-client-authorization-code") OAuth2AuthorizedClient authorizedClient,
 			Authentication authentication
 			) {
 		model.addAttribute("name", name);

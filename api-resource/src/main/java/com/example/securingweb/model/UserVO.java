@@ -1,5 +1,7 @@
 package com.example.securingweb.model;
 
+import java.util.List;
+
 public class UserVO {
 
     public Long idUsuario;
@@ -12,4 +14,7 @@ public class UserVO {
 
     public String dsLogin;
     public String dsAssinatura;
+    
+    public List<JAASApplication> apps;
+
 }

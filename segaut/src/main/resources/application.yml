@@ -14,22 +14,25 @@ spring:
     oauth2:
       client:
         registration:
-          articles-client-oidc:
+          SEGAUT-client-oidc:
             provider: spring
-            client-id: articles-client
+            # client-id: articles-client
+            client-id: SEGAUT
             client-secret: secret
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope: openid
-            client-name: articles-client-oidc
-          articles-client-authorization-code:
+            # client-name: articles-client-oidc
+            client-name: SEGAUT
+          SEGAUT-client-authorization-code:
             provider: spring
-            client-id: articles-client
+            # client-id: articles-client
+            client-id: SEGAUT
             client-secret: secret
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/authorized"
             scope: articles.read
-            client-name: articles-client-authorization-code
+            client-name: SEGAUT-client-authorization-code
         provider:
           spring:
             issuer-uri: http://127.0.0.1:9000

@@ -38,7 +38,7 @@ public class SecurityService {
     	
     	CustemUserDetail ud =  new CustemUserDetail(credenciais.nome, new ArrayList<String>() {{add("aaaa"); add("bbbb"); add("ccccc");}} );
     	
-    	OAuth2AuthorizedClient client = auth2AuthorizedClientRepository.loadAuthorizedClient("articles-client-authorization-code", aut, request );
+    	OAuth2AuthorizedClient client = auth2AuthorizedClientRepository.loadAuthorizedClient("SEGAUT-client-authorization-code", aut, request );
 
 
     	if( client == null) return null;
