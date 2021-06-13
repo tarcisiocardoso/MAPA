@@ -1,4 +1,4 @@
-package com.example.securingweb;
+package br.gov.mapa.segaut;
 
 import java.io.IOException;
 
@@ -16,8 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.securingweb.model.CustemUserDetail;
-import com.example.securingweb.service.SecurityService;
+import br.gov.mapa.segaut.model.CustemUserDetail;
+import br.gov.mapa.segaut.service.SecurityService;
 
 
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
@@ -29,16 +29,19 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    	Authentication aut = SecurityContextHolder.getContext().getAuthentication();
+    	System.out.println(">>>>>TokenAuthenticationFilter<<<<<"+aut.getName() );
         try {
-        	Authentication aut = SecurityContextHolder.getContext().getAuthentication();
-            CustemUserDetail ud = service.buscaUserDetail(aut);
-            if( ud != null ) {
-	            System.out.println("---->"+ aut.getName()+ "<<<<"+ aut.getAuthorities().size() );
-            	
-            	UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(ud, null, ud.getAuthorities());
-            	
-            	SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
+        	if( aut.getName().split(":").length > 1) {
+	            CustemUserDetail ud = service.buscaUserDetail(aut);
+	            if( ud != null ) {
+//		            System.out.println("---->"+ aut.getName()+ "<<<<"+ aut.getAuthorities().size() );
+	            	
+	            	UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(ud, null, ud.getAuthorities());
+	            	
+	            	SecurityContextHolder.getContext().setAuthentication(authentication);
+	            }
+        	}
         } catch (Exception ex) {
             logger.error("Could not set user authentication in security context", ex);
         }

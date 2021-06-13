@@ -9,10 +9,12 @@
     <h1>Ver 01 </h1>
     
     <p th:text="'Ola, ' + ${user.nome} + '!'" />
+    
+    <p th:text="'Foto, ' + ${user.foto} + '!'" />
 
     <h1>Aplicações</h1>
     <ul th:each="app: ${user.apps}">
-        <li th:text="@{${app.id}+' ->'+${app.nome}}">aaaa</li>
+        <li th:text="@{${app.id}+' ->'+${app.nome} +'-->'+${app.contexto}}">aaaa</li>
     </ul>
 
 

@@ -1,4 +1,4 @@
-package com.example.securingweb;
+package br.gov.mapa.segaut;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -55,7 +55,7 @@ public class SecurityConfig {
             )
           .oauth2Client(withDefaults());
         
-        http.addFilterBefore(tokenAuthenticationFilter(), BasicAuthenticationFilter.class);
+//        http.addFilterBefore(tokenAuthenticationFilter(), BasicAuthenticationFilter.class);
         
 //        	addFilterBefore(new ManagementEndpointAuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
         

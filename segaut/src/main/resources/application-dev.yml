@@ -9,10 +9,7 @@ logging:
     org.springframework.security.oauth2: INFO
 url: "bla"
 spring:
-  resource-uri: "http://localhost:8090"
-  
-#   profiles: dev
-  
+  resource-uri: http://192.168.52.95:8090
   security:
     oauth2:
       client:
@@ -38,4 +35,4 @@ spring:
             client-name: SEGAUT-client-authorization-code
         provider:
           spring:
-            issuer-uri: http://127.0.0.1:9000
+            issuer-uri: http://192.168.52.95:9000

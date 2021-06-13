@@ -1,4 +1,4 @@
-package com.example.securingweb.controller;
+package br.gov.mapa.segaut.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

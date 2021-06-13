@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>MAPA - Ministério da Agricultura, Pecuária e Abastecimento</title><meta name="copyright" content="Ministério da Agricultura, Pecuária e Abastecimento"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<link rel="stylesheet" type="text/css" href="/styles_java/css/estilo-bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="/styles_java/css/estilo-menu-dinamico.css" />
+	
+	<!-- ### JQuery - Biblioteca de componentes javascript ### -->
+	<script type="text/javascript" src="/segaut/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="/segaut/js/jquery-ui.js"></script>
+	<script type="text/javascript" src="/segaut/js/jquery.maskedinput.js"></script>
+	<script type="text/javascript" src="/segaut/js/scripts.js"></script>
+	<script type="text/javascript" src="/segaut/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/segaut/js/jquery.mask.min.js"></script>
+	<script type="text/javascript" src="/segaut/js/validator.js"></script>
+    <style type="text/css">
+        div#divVersaoBrowser {
+            display: none;
+            margin: 0px 5px 0px 15px;
+            color: #000000;
+            background-color: #FFFFCC;
+            padding: 10px;
+        }
+
+        .labelVersao {
+            color: #FF9933;
+            font-family: arial, verdana, helvetica;
+            font-size: 1.3em;
+            font-weight: bold;
+            padding: 10px;
+        }
+    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        $(document).ready(function () {
+            $("#username, #password").prop('required', true);
+            $('[data-toggle="tooltip"]').tooltip();
+            $('#loginForm').validator();
+            $("#username").focus();
+        });
+    </script>
+</head>
+
+<body onload="javascript: checkBrowserVersion();">
+    <div id="divVersaoBrowser">
+        <img height="70" style="float:right; border-radius:50px; margin-left: 22px;" id="img_usuario" src="/img_usuarios/05/0550c264df52017db03e39573098968a.jpg"></img>
+        <strong>Esta versão de navegador está desatualizada.</strong>
+        
+
+        
+        <br />
+        Veja ao lado as versões mínimas recomendadas para atualização e navegue com mais segurança.
+        <div style="float:right;">
+            <table>
+                <tr>
+                    <td>
+                        <label class="labelVersao">IE 8</label>
+                    </td>
+                    <td>
+                        <label class="labelVersao">Chrome 9</label>
+                    </td>
+                    <td>
+                        <label class="labelVersao">Firefox 3.0</label>
+                    </td>
+                    <td>
+                        <label class="labelVersao">Safari 3.2</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="resolucao">
+        <div id="moldura-topo">
+            <div id="topo">
+                <div id="identificacao-ministerio">
+                    <span>
+                        <div id="imagemGov">
+                            <a id="brasilgov" target="_blank" href="http://www.brasil.gov.br"></a>
+                        </div>
+                    </span>
+                </div>
+                <div id="identificacao-sistema">
+					<h1>
+						<label id="base_cabecalho_sigla_sistema" class="form-label">SEGAUT</label>
+					</h1>
+					<h2>
+						<label id="base_cabecalho_versao" class="form-label">2.5</label>
+						-
+						<label id="base_cabecalho_descricao_sistema" class="form-label">Sistema de Autentica&#xE7;&#xE3;o</label>
+					</h2>
+				</div>
+                <div id="dados-login">
+					<img height="70" style="float:right; border-radius:50px; margin-left: 22px;" id="img_usuario" src="https://sistemasweb.agricultura.gov.br/img_usuarios/05/0550c264df52017db03e39573098968a.jpg"></img>
+					<div id="dados_usuario" style="float: left;">
+						<div class="row">
+							<label id="base_label_usuario" style="color: #dcecff;">Usu&#xE1;rio</label>:
+							<label id="identificacao_usuario">Givaldo Almeida Oliveira</label>
+						</div>
+						<div class="row">
+							<label id="base_label_data" style="color: #dcecff;">Data</label>:
+							<B>28/05/2021  11:09</B>
+						</div>
+					</div>
+				</div>
+                <div id="dados-login"></div>
+            </div>
+        </div>
+        <div id="moldura-navegacao-global">
+            <div id="navegacao-global"></div>
+        </div>
+        <div id="corpo">
+            <form id="index" name="index" action="/lista" method="get">
+                <input type='hidden' name='sgAplicacaoRedirecionada' value='/sigme/paginaInicial.action' />
+
+
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <div id="conteudo-login-expirado">
+                    <h3>Acesso restrito</h3>
+                    <br />
+                    <p>Prezado(a)
+                        Givaldo,
+                    </p>
+
+                    <br />
+                    <br />
+                    <p>Você não possui privilégios suficientes para acessar esta página e/ou funcionalidade
+                    </p>
+
+                    <br />
+                    <p>Para solicitar sua autorização, favor entrar em contato com o gestor do sistema.</p>
+                    <br />
+                    <br />
+                    <div class="form-barra-botoes" >
+                        <input type="submit" id="index__execute" name="method:execute" value="Voltar"
+                            class="btn btn-primary" title="Clique aqui para retornar à lista de sistemas" />
+
+                    </div>
+                </div>
+            </form>
+            <p>Click <a th:href="@{/perform_logout}"> para fazer logout.</a></p>
+            
+					
+        </div>
+    </div>
+</body>
+</html>

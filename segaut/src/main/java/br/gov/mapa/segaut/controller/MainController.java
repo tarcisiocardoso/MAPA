@@ -1,9 +1,11 @@
-package com.example.securingweb.controller;
+package br.gov.mapa.segaut.controller;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -31,20 +33,32 @@ public class MainController {
 	@Autowired
     private WebClient webClient;
 	
-	// @GetMapping(value = "/greeting")
-    // public Object getArticles(
-    //   @RegisteredOAuth2AuthorizedClient("SEGAUT-client-authorization-code") OAuth2AuthorizedClient authorizedClient
-    // ) {
-    //     return this.webClient
-    //       .get()
-    //       .uri(resourceUri+"/me")
-    //       .attributes(oauth2AuthorizedClient(authorizedClient))
-    //       .retrieve()
-    //       .bodyToMono(HashMap.class)
-    //       .block();
-    // }
 
+	@GetMapping("/")
+	public String home(Model model,
+			@RegisteredOAuth2AuthorizedClient("SEGAUT-client-authorization-code") OAuth2AuthorizedClient authorizedClient) {
+		
+		System.out.println(">>>>resourceUri+\"/me\": "+ resourceUri+"/me");
+		Object o = this.webClient
+		          .get()
+		          .uri(resourceUri+"/me")
+		          .attributes(oauth2AuthorizedClient(authorizedClient))
+		          .retrieve()
+		          .bodyToMono(HashMap.class)
+				  .block();
+		
+		model.addAttribute("user", o);
+		model.addAttribute("data", getData());
+		
+		
+		return "index.html";
+	}
+	@GetMapping("/authorized")
+	public void authorized(Model model, @RegisteredOAuth2AuthorizedClient("SEGAUT-client-authorization-code") OAuth2AuthorizedClient authorizedClient) {
+		
+		System.out.println(">>>>authorized<<<<");
 
+	}
     @GetMapping("/userInfo")
 	public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model,
 			@RegisteredOAuth2AuthorizedClient("SEGAUT-client-authorization-code") OAuth2AuthorizedClient authorizedClient,
@@ -52,16 +66,6 @@ public class MainController {
 			) {
 		model.addAttribute("name", name);
 		
-		System.out.println(">>>>-"+resourceUri);
-		System.out.println("----->"+ authorizedClient.getPrincipalName() );
-		
-		Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>)
-		  SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-		  boolean hasRole = false;
-		  for (GrantedAuthority authority : authorities) {
-		     System.out.println("authority: "+ authority);
-		  }
-//
 		Object o = this.webClient
 		          .get()
 		          .uri(resourceUri+"/me")
@@ -71,28 +75,30 @@ public class MainController {
 				  .block();
 		System.out.println("----->"+ o );
 		model.addAttribute("user", o);
-		// Collection<?extends Object> granted = authentication.getCredentials();
-	    // Collection<?extends GrantedAuthority> granted = authentication.getAuthorities();
-
-	    // for( Object ga: granted) {
-	    // 	System.out.println("Authority: "+ga.toString() );
-	    // }
-		
-		// model.addAttribute("lst", granted );
-		
-//		System.out.println("======>"+o.getClass().getName());
 		
 		return "greeting";
 	}
 
-	@GetMapping("/perform_logout")
+	@GetMapping("/logout")
 	public String logout(Model model) {
 		return "sair";
 	}
 
 	@GetMapping("/lista")
-	public String lista(Model model) {
-		return "lista";
+	public String lista(Model model,
+			@RegisteredOAuth2AuthorizedClient("SEGAUT-client-authorization-code") OAuth2AuthorizedClient authorizedClient) {
+		Object o = this.webClient
+		          .get()
+		          .uri(resourceUri+"/me")
+		          .attributes(oauth2AuthorizedClient(authorizedClient))
+		          .retrieve()
+		          .bodyToMono(HashMap.class)
+				  .block();
+		
+		model.addAttribute("user", o);
+		model.addAttribute("data", getData());
+		
+		return "index.html";
 	}
 
 	@GetMapping("/alterarSenha")
@@ -103,5 +109,10 @@ public class MainController {
 	@GetMapping("/login")
 	public String login(Model model) {
 		return "login";
+	}
+	private String getData() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		
+		return sdf.format(new Date() );
 	}
 }

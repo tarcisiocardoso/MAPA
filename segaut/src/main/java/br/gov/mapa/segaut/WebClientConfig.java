@@ -1,4 +1,4 @@
-package com.example.securingweb;
+package br.gov.mapa.segaut;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

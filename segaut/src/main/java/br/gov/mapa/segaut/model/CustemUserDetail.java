@@ -1,4 +1,4 @@
-package com.example.securingweb.model;
+package br.gov.mapa.segaut.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,8 +9,25 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustemUserDetail  implements UserDetails {
-	String nome;
-	List<String>roles;
+	public String id;
+	public String login;
+	public String nome;
+	public List<String>roles;
+	public String foto;
+	public List<App> apps;
+	
+	
+	
+	public static class App{
+		public String id;
+		public String nome;
+		public String name;
+		public String versao;
+		public String sigla;
+		public String contexto;
+		public String signedData;
+	}
+	
 	public CustemUserDetail(String nome, List<String>roles) {
 		this.nome = nome;
 		this.roles = roles;
