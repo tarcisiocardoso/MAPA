@@ -104,6 +104,10 @@ public class AllController {
         return resourceLoader.getResource(
           "classpath:data/veiculo.json");
     }
+    
+    
+    
+
                                                
     @GetMapping(path="/area-segura/veiculo/crv/consultarStatusAtpveComprador", produces = { "application/json"})
     @CrossOrigin(origins = "*")
@@ -306,6 +310,7 @@ public class AllController {
         
 		return map;
     }
+
     
     
     @PostMapping(path="/area-segura/veiculo/crv/recusaAtpve")
