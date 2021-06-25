@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Demostração micro frontend</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+
+    <h2>bla do gerente</h2>    
+</body>
+
+<div id='cliente01'></div>
+
+<br/>
+<br/>
+<br/>
+<div id='cliente02'></div>
+<script>
+    callHtml('http://localhost:8081', 'cliente01');
+    callHtml('http://localhost:8082', 'cliente02');
+</script>
+</html>
+
