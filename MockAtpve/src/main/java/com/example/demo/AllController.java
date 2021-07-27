@@ -104,10 +104,6 @@ public class AllController {
         return resourceLoader.getResource(
           "classpath:data/veiculo.json");
     }
-    
-    
-    
-
                                                
     @GetMapping(path="/area-segura/veiculo/crv/consultarStatusAtpveComprador", produces = { "application/json"})
     @CrossOrigin(origins = "*")
@@ -133,7 +129,7 @@ public class AllController {
 	        	}
 	        }
 	        System.out.println(arrRetorno.toString() );
-	        if( qtd > 0 ) return arrRetorno.toString(); // if( qtd > 10 ) return arrRetorno.toString();
+	        if( qtd > 10 ) return arrRetorno.toString(); // if( qtd > 10 ) return arrRetorno.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -202,10 +198,10 @@ public class AllController {
     @GetMapping(path="/area-segura/veiculo/crv/buscaTimeLineAtpve", produces = { "application/json"})
     @CrossOrigin(origins = "*")
 	public Object buscaTimeLineAtpve(final HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String renavam = request.getParameter("renavam");
-        System.out.println("renavam =====>"+ renavam );
+        String chassi = request.getParameter("chassi");
+        System.out.println("chassi =====>"+ chassi );
         
-        if( renavam.equals("00846743211")) {
+        if( chassi.equals("00846743211")) {
         	response.sendError(HttpStatus.NOT_FOUND.value(), "Prorrogacao não encontrado.");
         	return null;
         }
@@ -288,11 +284,11 @@ public class AllController {
         
 		return map;
     }
-    @PostMapping(path="/api/realizaMatch")
+    @PostMapping(path="/api/atpve/realizaMatch")
     @CrossOrigin(origins = "*")
     public Object realizaMatch(Object dado) {
     	HashMap map = new HashMap<String, Object>();
-        map.put("confidence", "1");
+        map.put("confidence", 0.8);
         map.put("status", "202");
         
 		return map;
@@ -360,26 +356,26 @@ public class AllController {
 	public Object consultarPendenciaAtpv(final HttpServletRequest request) {
     	String placa = request.getParameter("placa");
         try{
-
             Reader reader = new InputStreamReader(
                 resourceLoader.getResource("classpath:data/veiculo.json").getInputStream(), "UTF-8"
             );
-
             String s = FileCopyUtils.copyToString(reader);
 
-
-            sleep(1000);
-//            JSONObject json = new JSONObject(s);
+            sleep(300);
+            JSONObject json = new JSONObject(s);
             
-            JSONArray arr = new JSONArray(s);
+            JSONArray arr = json.getJSONArray("veiculos");
             
             for( int i=0; i< arr.length(); i++) {
             	JSONObject j = arr.getJSONObject(i);
             	System.out.println("--->"+ j.getString("placa"));
-            	if( j.getString("placa").equals(placa)) return j.toString();
-            }
-            
-
+            	if( j.getString("placa").equals(placa)) {
+            		System.out.println( j.toString() );
+            		JSONObject jRoot = new JSONObject();
+            		jRoot.put("veiculos", j);
+            		return jRoot.toString();
+            	}
+            }            
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -429,7 +425,16 @@ public class AllController {
 		} 
 		return map;
     }
-    
+	@PostMapping("/area-segura/veiculo/crv/confirmaAssinaturaAtpve")
+    public Object confirmaAssinaturaAtpve(@RequestBody HashMap<String, String> atpve) {
+    	System.out.println("atpve: "+ atpve);
+    	String match = atpve.get("match");
+    	System.out.println( match );
+    	HashMap<String, Object>hm = new HashMap<>();
+    	hm.put("success", true);
+    	return hm;
+    }
+	
     public static class Greeting{
         public final long id;
         public final String content; 
