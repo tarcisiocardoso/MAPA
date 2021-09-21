@@ -335,17 +335,17 @@ public class AllController {
 		return map;
     }
     
-        @PostMapping(path="/area-segura/veiculo/crv/listaVeiculoComprador")
+     @GetMapping(path="/area-segura/veiculo/crv/listaVeiculoComprador")
     @CrossOrigin(origins = "*")
-    public Object listaVeiculoComprador(@RequestBody HashMap<String, String>dado) {
+    public Object listaVeiculoComprador(Object o) {
     	
-    	
-    	System.out.println("---->"+ dado );
-    	
-    	
-    	HashMap map = new HashMap<String, Object>();
-        sleep(1000);
-		return map;
+        	System.out.println("bla");
+//    	HashMap map = new HashMap<String, Object>();
+//        sleep(1000);
+//		return map;
+        	
+        	return resourceLoader.getResource(
+                    "classpath:data/listaVeiculoComprador.json");
     }
 
     @PostMapping(path="/area-segura/veiculo/crv/recusaAtpve")
