@@ -21,6 +21,8 @@
       "servicosDetran": null,
       "pendencias": {
         "isDebitoIpva": true,
+        "existeDocumentoAtpve": true,
+        "primeiroAtpve": false,
         "debitosRestricoes": {
         	"debitoTaxas": true,
 	        "mensagensRestricao": [
