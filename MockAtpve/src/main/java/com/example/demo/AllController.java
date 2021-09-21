@@ -129,7 +129,7 @@ public class AllController {
 	        	}
 	        }
 	        System.out.println(arrRetorno.toString() );
-	        if( qtd > 10 ) return arrRetorno.toString(); // if( qtd > 10 ) return arrRetorno.toString();
+	        if( qtd > 0 ) return arrRetorno.toString(); // if( qtd > 10 ) return arrRetorno.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -186,7 +186,9 @@ public class AllController {
         
         ArrayList<TimeLine>lst = new ArrayList<>();
         lst.add( new TimeLine("ATPV-e", "Autorização para trsnferencia de propriedades", true, "left"));
-        lst.add( new TimeLine("Comfirmação do comprador", "", true, "right"));
+        TimeLine tl = new TimeLine("Comfirmação do comprador", "", true, "right");
+        tl.subTitulo = "Biometria (Face ID) em análise";
+        lst.add( tl );
         lst.add( new TimeLine("Comunicado de venda", "", false, "left"));
         lst.add( new TimeLine("Agendamento de vistoria", "", false, "right"));
         lst.add( new TimeLine("Vistoria", "", false, "right"));
@@ -210,7 +212,9 @@ public class AllController {
         
         ArrayList<TimeLine>lst = new ArrayList<>();
         lst.add( new TimeLine("emissao", "Emissão da ATPV-e", true, "right"));
-        lst.add( new TimeLine("assinaturaVendedor", "Assinatura eletrônica do vendedor", false, "right"));
+        TimeLine tl = new TimeLine("assinaturaVendedor", "Assinatura eletrônica do vendedor", false, "right");
+        tl.subTitulo = "Biometria (Face ID) em análise";
+        lst.add( tl );
         lst.add( new TimeLine("assinaturaComprador", "Assinatura eletrônica do comprador", false, "left"));
 		return lst;
     }
@@ -284,12 +288,15 @@ public class AllController {
         
 		return map;
     }
-    @PostMapping(path="/api/atpve/realizaMatch")
+    @SuppressWarnings("unchecked")
+	@PostMapping(path="/api/atpve/realizaMatch")
     @CrossOrigin(origins = "*")
     public Object realizaMatch(Object dado) {
-    	HashMap map = new HashMap<String, Object>();
+    	@SuppressWarnings("rawtypes")
+		HashMap map = new HashMap<String, Object>();
         map.put("confidence", 0.8);
         map.put("status", "202");
+//        if( true ) throw new RuntimeException("deu ruim...");
         
 		return map;
     }
@@ -405,6 +412,31 @@ public class AllController {
 		return map;
     }    
     
+    @PostMapping(path="/area-segura/veiculo/crv/gerar-atpv-e", produces = { "application/json"})
+    @CrossOrigin(origins = "*")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public Object gerarAtpve(final HttpServletRequest request) {
+    	
+    	System.out.println("--->"+request.getParameter("match") );
+    	
+    	
+		HashMap map = new HashMap<String, Object>();
+    	map.put("numeroAtpv", "123321");
+//    	try {
+//    		byte[] inFileBytes = Files.readAllBytes(Paths.get("/home/tarcisio/trabalho/EDS/DETRAN/projetos/demo/src/main/resources/data/LICENCIAMENTO - 2021.pdf"));
+//		
+//			byte[] encoded = java.util.Base64.getEncoder().encode(inFileBytes);
+//			
+//			String encodedString =  new String(encoded);
+//			
+//			 map.put("pdfAtpvBase64", encodedString);
+//		
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} 
+		return map;
+    }
+    
     @GetMapping(path="/area-segura/veiculo/crv/emitirNovo-atpv-eletronico/pdf", produces = { "application/json"})
     @CrossOrigin(origins = "*")
 	public Object emitirNovoAtpvEletronico(final HttpServletRequest request) {
@@ -448,6 +480,7 @@ public class AllController {
     public static class TimeLine{
     	public String id;
     	public String titulo;
+    	public String subTitulo;
     	public boolean concluido;
     	public String position;
     	public TimeLine(String id, String tt, boolean ok, String pos) {
