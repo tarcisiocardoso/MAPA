@@ -88,9 +88,9 @@ public class AllController {
 	public Object consultarAtpveRecusado(final HttpServletRequest request, HttpServletResponse response) {
         String cpf = request.getParameter("cpf");
         System.out.println("=====>"+ cpf );
-
-        return resourceLoader.getResource(
-          "classpath:data/consultarAtpveRecusado.json");
+        return null;
+        // return resourceLoader.getResource(
+        //   "classpath:data/consultarAtpveRecusado.json");
 	}
     
     @GetMapping("/area-segura/veiculo/crv/buscaValores")
@@ -308,8 +308,46 @@ public class AllController {
 		return map;
     }
 
+
+    @PostMapping(path="/area-segura/veiculo/crv/consulta-cancelamento")
+    @CrossOrigin(origins = "*")
+    public Object consultaCancelamento(@RequestBody HashMap<String, String>dado) {
+    	
+    	
+    	System.out.println("---->"+ dado );
+    	
+    	
+    	HashMap map = new HashMap<String, Object>();
+        sleep(1000);
+		return map;
+    }
+
+    @PostMapping(path="/area-segura/veiculo/crv/consultarStatusAtpv")
+    @CrossOrigin(origins = "*")
+    public Object consultarStatusAtpv(@RequestBody HashMap<String, String>dado) {
+    	
+    	
+    	System.out.println("---->"+ dado );
+    	
+    	
+    	HashMap map = new HashMap<String, Object>();
+        sleep(1000);
+		return map;
+    }
     
-    
+        @PostMapping(path="/area-segura/veiculo/crv/listaVeiculoComprador")
+    @CrossOrigin(origins = "*")
+    public Object listaVeiculoComprador(@RequestBody HashMap<String, String>dado) {
+    	
+    	
+    	System.out.println("---->"+ dado );
+    	
+    	
+    	HashMap map = new HashMap<String, Object>();
+        sleep(1000);
+		return map;
+    }
+
     @PostMapping(path="/area-segura/veiculo/crv/recusaAtpve")
     @CrossOrigin(origins = "*")
     public Object recusaAtpve(@RequestBody HashMap<String, String>dado) {
@@ -392,7 +430,7 @@ public class AllController {
     	HashMap map = new HashMap<String, Object>();
     	map.put("numeroAtpv", "123321");
     	try {
-    		byte[] inFileBytes = Files.readAllBytes(Paths.get("/home/tarcisio/trabalho/EDS/DETRAN/projetos/demo/src/main/resources/data/19F5F1B7-2058-4E94-B480-87A7FCDF8DE6.pdf"));
+    		byte[] inFileBytes = Files.readAllBytes(Paths.get("./src/main/resources/data/19F5F1B7-2058-4E94-B480-87A7FCDF8DE6.pdf"));
 		
 			byte[] encoded = java.util.Base64.getEncoder().encode(inFileBytes);
 			
