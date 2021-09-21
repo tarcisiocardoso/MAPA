@@ -7,8 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,20 +16,13 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.databind.deser.impl.SetterlessProperty;
 
 @RestController
 public class AllController {
@@ -57,19 +48,6 @@ public class AllController {
 		return map;
 	}
     
-    @GetMapping(path="/area-segura/veiculo/crv/buscaValores", produces = { "application/json"})
-    @CrossOrigin(origins = "*")
-	public Object buscaValores() {
-    	
-        
-    	HashMap map = new HashMap<String, Object>();
-        map.put("cancelarAtpve", 45.00f);
-        map.put("valorTotal", 161.00f);
-        
-        sleep(2000);
-        
-		return map;
-	}
     
     private HashMap<String, Object> makeHudson(){
     	String []roles = {};
@@ -104,6 +82,22 @@ public class AllController {
         return resourceLoader.getResource(
           "classpath:data/veiculo.json");
     }
+    
+    @GetMapping(path="/area-segura/veiculo/crv/consultarAtpveRecusado", produces = { "application/json"})
+	@CrossOrigin(origins = "*")
+	public Object consultarAtpveRecusado(final HttpServletRequest request, HttpServletResponse response) {
+        String cpf = request.getParameter("cpf");
+        System.out.println("=====>"+ cpf );
+
+        return resourceLoader.getResource(
+          "classpath:data/consultarAtpveRecusado.json");
+	}
+    
+    @GetMapping("/area-segura/veiculo/crv/buscaValores")
+	public Object buscaValores(){
+        return resourceLoader.getResource(
+                "classpath:data/buscaValores.json");
+	}
                                                
     @GetMapping(path="/area-segura/veiculo/crv/consultarStatusAtpveComprador", produces = { "application/json"})
     @CrossOrigin(origins = "*")
