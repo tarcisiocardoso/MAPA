@@ -89,8 +89,8 @@ public class AllController {
         String cpf = request.getParameter("cpf");
         System.out.println("=====>"+ cpf );
 
-        return resourceLoader.getResource(
-          "classpath:data/consultarAtpveRecusado.json");
+        return null;
+//        return resourceLoader.getResource("classpath:data/consultarAtpveRecusado.json");
 	}
     
     @GetMapping("/area-segura/veiculo/crv/buscaValores")
